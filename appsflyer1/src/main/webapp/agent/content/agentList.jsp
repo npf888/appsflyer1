@@ -79,6 +79,9 @@
 										</button>
 									</div>
 								</td>
+								
+								
+								<!--  -->
 								<td class="visible-xs">
 									<button class="btn btn-primary btn-open">查看</button>
 								</td>
