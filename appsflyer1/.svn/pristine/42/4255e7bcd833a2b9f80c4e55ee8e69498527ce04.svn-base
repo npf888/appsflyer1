@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  <!DOCTYPE struts PUBLIC  
+      "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+      "http://struts.apache.org/dtds/struts-2.0.dtd">  
+  <struts>  
+        <!-- struts的action配置文件 -->  
+     <!-- 将action托管给spring -->  
+     <constant name="struts.objectFactory" value="spring"></constant> 
+     <constant name="struts.action.extension" value="do"/> 
+     <!-- 所有的action都应该放在对应的package下 -->  
+     <package name="base-default" namespace="/" extends="struts-default">
+		<interceptors>
+
+			<interceptor name="baseInterceptor"
+				class="com.ami.api.web.interceptor.BaseInterceptor">
+			</interceptor>
+
+			<interceptor name="userSessionInterceptor"
+				class="com.ami.api.web.interceptor.UserSessionInterceptor">
+			</interceptor>
+
+			<interceptor-stack name="baseInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="baseInterceptor"></interceptor-ref>
+				<!-- <interceptor-ref name="cookieImterceptor"></interceptor-ref> -->
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+				<result name="userindex">/userindex.jsp</result>
+				<result name="index">/main.jsp</result>
+				<result name="logout">/common/loginagin.jsp</result>
+				<result name="login">/common/loginagin.jsp</result>
+				<result name="sessionError">/common/loginagin.jsp</result>
+				<result name="systemError">/common/error-500.jsp</result>
+				<result name="addSuccess">/common/addSuccess.jsp</result>
+				<result name="noright">/common/noright.htm</result>
+	
+			</global-results>
+	</package>
+
+	<include file="struts_cfg/struts_texas.xml"/>	
+
+	<include file="struts_cfg/struts_admin.xml" />
+	<include file="struts_cfg/struts_adminlog.xml" />
+	<include file="struts_cfg/struts_common.xml" />
+	<include file="struts_cfg/struts_login.xml" />
+	<include file="struts_cfg/struts_sysconfig.xml" />
+	<include file="struts_cfg/struts_appsflyer.xml" />
+	<include file="struts_cfg/struts_download.xml" />
+	<include file="struts_cfg/struts_weixin.xml" />
+	
+  </struts>  

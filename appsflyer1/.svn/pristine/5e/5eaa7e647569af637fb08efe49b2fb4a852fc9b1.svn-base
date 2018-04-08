@@ -1,0 +1,63 @@
+package com.ami.texas.jpush.action;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.ami.api.web.action.BaseAction;
+import com.ami.texas.news.service.NewsService;
+
+
+/**
+ * 推送配置
+ *
+ */
+@Scope("prototype")
+@Component
+public class JpushAction extends BaseAction
+{
+    /**
+     * 注释内容
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Autowired
+    NewsService newsService;
+
+    private static Logger logger = Logger.getLogger(JpushAction.class);
+    
+    
+    
+    /**
+     * 推送消息配置
+     * @return
+     */
+    public String queryConfig()
+    {
+    	
+    	return "queryConfig";
+    	
+    }
+    
+    public String saveConfig()
+    {
+    	return "saveConfig";
+    }
+    /**
+     * 立即推送
+     */
+    public void pushNow()
+    {
+    	try{
+    		String jsonStr = this.get("jsonStr");
+    		newsService.sendMessage(jsonStr);
+    		print("推送消息成功");
+    	}catch (Exception e)
+    	{
+    		logger.error("Delete Exception", e);
+    	}
+    }
+    
+}
+

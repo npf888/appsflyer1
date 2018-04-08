@@ -1,0 +1,149 @@
+package com.ami.statistics.action;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.ami.api.common.Pager;
+import com.ami.api.exception.APIException;
+import com.ami.api.utill.StringTool;
+import com.ami.api.web.action.BaseAction;
+import com.ami.common.TimeUtil;
+import com.ami.statistics.pojo.OrderVO;
+import com.ami.statistics.pojo.THumanInfoSimple2VO;
+import com.ami.statistics.pojo.THumanInfoSimpleVO;
+import com.ami.statistics.service.StatisticsService;
+/**
+ * 1銆佺帺瀹剁瓑绾у垎甯�
+ * 2銆佺帺瀹舵瘡鏃ュ湪绾挎椂闀垮垎甯�
+ * @author JavaServer
+ *
+ */
+@Scope("prototype")
+@Component
+public class StatisticsAction extends BaseAction{
+	
+	@Autowired
+	private StatisticsService statisticsService;
+	
+	/**
+	 * 鐜╁绛夌骇鍒嗗竷
+	 * 
+	 * 缁熻鐢ㄦ埛姣忎釜绛夌骇涓嬫湁澶氬皯浜�
+	 * 
+	 **/
+	public String levelNum(){
+		
+		String type = this.getReq().getParameter("type");
+		List<THumanInfoSimpleVO> simpleVOS= statisticsService.levelAndTotalTime(this.getReq());
+		Collections.sort(simpleVOS, new Comparator<THumanInfoSimpleVO>() {
+			@Override
+			public int compare(THumanInfoSimpleVO o1, THumanInfoSimpleVO o2) {
+				if(o1.getLevel() > o2.getLevel()){
+					return 1;
+				}
+				return -1;
+			}
+		});
+		this.getReq().setAttribute("simpleVOS", simpleVOS);
+		boolean ss = true;
+		if(StringUtils.isNotBlank(type)  && "ichart".equals(type)){
+			String labels = "";
+			String flow = "";
+			Date date =new Date();
+			if(simpleVOS != null && simpleVOS.size()>0){
+				for(THumanInfoSimpleVO info:simpleVOS){
+					flow +=info.getNum()+",";
+					labels+=info.getLevel()+",";
+				}
+				labels=labels.substring(0, labels.length()-1);
+				flow=flow.substring(0, flow.length()-1);
+			}
+			this.getReq().setAttribute("flow", flow);
+			this.getReq().setAttribute("labels", labels);
+			return "levelNumIchart";
+		}
+		return "levelNum";
+	}
+	/**
+	 * 鐜╁姣忔棩鍦ㄧ嚎鏃堕暱鍒嗗竷
+	 * 
+	 * 缁熻姣忎釜鏃堕棿娈典笅鏈夊灏戜汉
+	 * 
+	 **/
+	public String totalTimeNum(){
+		
+		String type = this.getReq().getParameter("type");
+		List<THumanInfoSimple2VO> simple2VOS= statisticsService.totalTimeNum(this.getReq());
+		this.getReq().setAttribute("simple2VOS", simple2VOS);
+		boolean ss = true;
+		if(StringUtils.isNotBlank(type) && "ichart".equals(type)){
+			return "totalTimeNumIchart";
+		}
+		return "totalTimeNum";
+	}
+	/**
+	 *	姣忓彴鑰佽檸鏈虹殑娓告垙鏃堕暱
+	 * 
+	 * 缁熻鐜╁鑺辫垂鍦ㄦ瘡鍙拌�佽檸鏈虹殑鏃堕棿
+	 * @throws APIException 
+	 * 
+	 **/
+	public String humanSpendTimeOnSlot() throws APIException{
+		
+		String field[] = new String[]{"dateStr"};
+    	
+    	Map<String, Object> params = this.reqToMap(field);
+    	if(StringTool.isEmpty(this.get("dateStr")))
+    	{
+    		params.put("dateStr", TimeUtil.formatYMDHMTime(System.currentTimeMillis()));
+    		
+    	}
+    	this.set("dateStr", params.get("dateStr"));
+    	this.set("params", params);
+    	
+    	//鏌ヨ绗﹀悎鏃堕棿瑙勫垯鐨勬暟鎹〃
+		
+		
+    	Map<String,Long>  result = statisticsService.humanSpendTimeOnSlot(params,"in_out_time_log");
+    	List<String> left = new ArrayList<String>();
+    	List<Long> right = new ArrayList<Long>();
+    	if(result != null){
+    		for(Entry<String,Long> entry:result.entrySet()){
+    			left.add(entry.getKey());
+    			right.add(entry.getValue());
+    		}
+    	}
+    	this.getReq().setAttribute("left", left);
+    	this.getReq().setAttribute("right", right);
+		return "humanSpendTimeOnSlot";
+	}
+	/**
+	 * 订单统计
+	 * @return
+	 */
+	public String order(){
+		
+		String channelId = this.getReq().getParameter("channelId");
+		String username = this.get("username");
+		String account = this.get("useraccount");
+		this.set("account", account);
+        this.set("username", username);
+		if(StringUtils.isEmpty(channelId)){
+			channelId="18";
+		}
+		 Pager pager = new Pager(this.getReq());
+		pager= statisticsService.order(pager,channelId,account,username);
+		this.set("PAGER", pager);
+		return "order";
+	}
+}

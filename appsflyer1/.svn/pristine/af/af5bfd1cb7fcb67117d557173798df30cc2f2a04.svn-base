@@ -1,0 +1,196 @@
+package com.ami.sys.admin.dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
+import com.ami.api.common.AppConstant;
+import com.ami.api.common.Pager;
+import com.ami.api.exception.APIException;
+import com.ami.api.utill.StringTool;
+import com.ami.api.web.dao.BaseDao;
+import com.ami.sys.admin.bean.AdminBean;
+
+/**
+ * 
+ * 查询用户信息
+ * 
+ * @author zhang
+ * @version [版本号, 2013-5-30]
+ * @see [相关类/方法]
+ * @since [产品/模块版本]
+ */
+@Component
+public class AdminDao extends BaseDao
+{
+    
+    /**
+     * 添加用户
+     * 
+     * @param params 参数 key value
+     * @return
+     * @throws APIException
+     * @see [类、类#方法、类#成员]
+     */
+    public String add(Map<String, Object> params)
+        throws APIException
+    {
+        
+        String id = this.getSequence("sys_admin_texas." + AppConstant.seq_pre_common_member_id) + "";
+        
+        params.put("id", id);
+        
+        this.table.insert("sys_admin_texas.pre_common_member", params);
+        
+        return id;
+    }
+//    select id,account  from sys_admin_texas.pre_common_member
+    
+    /**
+     * 判断账户是否重复
+     * 
+     * @param params 参数 key value
+     * @return
+     * @throws APIException
+     * @see [类、类#方法、类#成员]
+     */
+    public List<HashMap<String, Object>> checkAccout(String account)
+        throws APIException
+    {
+        String sql= "select *  from  sys_admin_texas.pre_common_member  where account='"+account+"'";
+        List<HashMap<String, Object>> list = this.db.query(sql);
+        return list;
+    } 
+    
+    
+    
+    
+    /**
+     * 根据用户ID 修改用户信息
+     * 
+     * @param params 修改的字段以及value
+     * @param id 用户唯一ID
+     * @return
+     * @throws APIException
+     * @see [类、类#方法、类#成员]
+     */
+    public void update(Map<String, Object> params, String id)
+        throws APIException
+    {
+        this.table.update("sys_admin_texas.pre_common_member", params, id);
+        
+    }
+    
+    /**
+     * 初始化密码
+     * 
+     * @param account
+     * @param pwd
+     * @see [类、类#方法、类#成员]
+     */
+    public void resetPwd(String account, String pwd)
+    {
+        String sql = "update sys_admin_texas.pre_common_member set pwd=? where account=? ";
+        
+        try
+        {
+            this.db.update(sql, new Object[]
+            {pwd, account});
+        }
+        catch (APIException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
+    
+    /**
+     * 根据ID 删除用户信息
+     * 
+     * @param id
+     * @throws APIException
+     * @see [类、类#方法、类#成员]
+     */
+    public void delByID(String id)
+        throws APIException
+    {
+        
+        this.table.delete("sys_admin_texas.pre_common_member", id);
+    }
+    
+    /**
+     * 根据账号和密码 查询信息
+     * 
+     * @return
+     * @throws APIException
+     * @see [类、类#方法、类#成员]
+     */
+    public AdminBean loadByAccountPwd(String acount, String pwd)
+        throws APIException
+    {
+        // 查询条件
+        Object ojb[] = new Object[]
+        {acount, pwd};
+        
+        // DB
+        AdminBean loginInfo = this.db.load("select * from sys_admin_texas.pre_common_member where account = ? and pwd = ?", ojb, AdminBean.class);
+        
+        return loginInfo;
+    }
+    
+    public List<HashMap<String, Object>> query()
+        throws APIException
+    {
+        
+        List<HashMap<String, Object>> list = this.db.query("select * from sys_admin_texas.pre_common_member where account!='admin' and account!='dev' order by time_stamp desc");
+
+        return list;
+        
+    }
+    
+    /**
+     * 根据用户ID 查询用户信息
+     * 
+     * @param id 用户唯一ID
+     * @return
+     * @throws APIException
+     * @see [类、类#方法、类#成员]
+     */
+    public Map<String, Object> loadAdminByID(String id)
+        throws APIException
+    {
+        Map<String, Object> o = this.table.load("sys_admin_texas.pre_common_member", id);
+        
+        return o;
+    }
+    
+    public Pager queryForPage(Pager pager, String useraccount, String username)
+        throws APIException
+    {
+
+        
+        String sql = "select * from sys_admin_texas.pre_common_member  where  account!='admin' and account!='dev'";
+        
+        if (!StringTool.isEmpty(useraccount))
+        {
+            sql += " and account like '%" + useraccount + "%'";
+        }
+        if (!StringTool.isEmpty(username))
+        {
+            sql += " and username like '%" + username + "%'";
+        }
+        
+        sql += " order by time_stamp desc";
+        
+        pager = this.db.queryPage(sql, new Object[]
+        {}, pager);
+        
+        return pager;
+        
+    }
+    
+
+}

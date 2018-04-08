@@ -1,0 +1,16 @@
+package com.ami.texas.gamenew.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.ami.api.common.Pager;
+import com.ami.texas.gamenew.dao.GamenewDao;
+@Component
+public class GamenewService {
+	@Autowired
+    private GamenewDao gamenewDao;
+
+	public Pager queryCollect(Pager pager, String account, String username) {
+		return gamenewDao.queryCollect(pager, account, username);
+	}
+}

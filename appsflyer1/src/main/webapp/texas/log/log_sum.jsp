@@ -1,0 +1,434 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib prefix="s" uri="/WEB-INF/struts-tags.tld" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<base href="${pageContext.request.contextPath}/" />
+<link rel="stylesheet" type="text/css" href="/js/Clockpicker/bootstrap-clockpicker.min.css">
+    <!-- Data Tables -->
+    <link href="css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="css/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="css/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+<style>
+.dataTables_wrapper {
+    padding-bottom: 30px;
+}	
+.dataTables_length {
+    float: left;
+}
+.color-red{
+background:#ed5565;
+color:#fff;
+}
+.cloro-Green{
+background:#18a689;
+color:#fff;
+}
+
+.cloro-Magenta{
+background:#EE82EE;
+color:#fff;
+}
+
+.cloro-Goldenrod{
+background:#f7a54a;
+color:#fff;
+}
+.cloro-DarkGoldenrod{
+background:#B8860B;
+color:#fff;
+}
+
+</style>
+
+<div id="ami_main">
+	<div class="row-fluid" id="div1">	
+			<form class="form-inline" action="log.do?method=sumLog&type=${params.type}" method="post" id="searchForm">
+			<%-- <input type="hidden"  id="d4310" value="${min_date}" class="Wdate"/>
+				<input type="hidden"  id="d4313" value="${max_date}" class="Wdate"/> 
+				开始时间:	<input type="text"  id="d4311" name="start" value="${start_date}" class="Wdate" onClick="WdatePicker({minDate:'#F{$dp.$D(\'d4310\')}',maxDate:'#F{$dp.$D(\'d4312\')}',dateFmt:'yyyy_MM_dd'})" style="width:100px" requiry="true"/>
+				截止时间：<input type="text"  id="d4312" name="end" value="${end_date}" class="Wdate"  onClick="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'#F{$dp.$D(\'d4313\')}',realDateFmt:'yyyy_MM_dd',dateFmt:'yyyy_MM_dd'})" style="width:100px" requiry="true"/> 
+			--%>
+			开始时间:	<input type="text"   name="start" value="${start_date}" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy_MM_dd'})" style="width:100px" requiry="true"/>
+			截止时间：<input type="text"  name="end" value="${end_date}" class="Wdate"  onClick="WdatePicker({dateFmt:'yyyy_MM_dd'})" style="width:100px" requiry="true"/> 
+				<button type="button"  style="margin-left:10px" class="btn btn-mini btn-info" onClick="go(1)">检索</button>	
+			</form>
+			
+	</div>
+<hr/>
+
+
+ 
+ 
+<div class="row-fluid">
+	<div class="table-responsive" style="overflow-x:scroll">
+		<div class="ami_table_header"><span class="ami_table_header_title">${params.type} 每日总览</span>
+
+		</div>
+		
+		<table id="table_report" class="table table-striped table-bordered table-hover dataTables-example">
+		
+			<thead>			
+				<tr>	
+					<!--<th style="position:absolute;background-color:#f1f1f1;height:136px;width:62px;border-right:1px solid #DDD">日期</th>
+					--><th>日期</th>
+					
+					<!-- 
+					<th class="color-red">查询总系统赠送</th>
+					<th class="cloro-Goldenrod">查询总各个系统盈利</th>
+					<th class="cloro-DarkGoldenrod">查询总系统总盈利</th>
+					
+					 -->
+					<th>活跃用户携带筹码</th>
+					<th>购买筹码</th>
+					
+					<th class="color-red">系统赠送</th>
+					<th class="cloro-Goldenrod">各个系统盈利</th>
+					<th class="cloro-DarkGoldenrod">系统总盈利</th>
+					
+					<th class="color-red">每周签到</th>
+					<th class="color-red">新手引导奖励</th>
+					<th class="color-red">每日任务领取筹码</th>
+					<th class="color-red">在线奖励领取筹码</th>
+					<th class="color-red">邮件和排行榜奖励</th>
+					<!-- <th class="color-red">美金购买</th> -->
+					
+					<th class="color-red">创建角色初始筹码</th>
+					<th class="color-red">fb登陆赠送</th>
+					<th class="color-red">fb邀请奖励</th>
+					<th class="color-red">成就获得筹码</th>
+					<th class="color-red">德州彩金返还</th>
+					<th class="color-red">老虎机彩金返还</th>
+					
+					
+					<th class="cloro-Magenta">发送互动道具</th>
+					<th class="cloro-Goldenrod">百家乐明灯复活</th>
+					
+					
+					<th class="cloro-Green" >德州小费</th>
+					<th class="cloro-Green" >德州房间补充筹码</th>
+					<th class="cloro-Green" >德州房间换取筹码</th>
+					<th class="color-red" >德州退出房间</th>
+					<th class="color-red" >机器人补充筹码</th>
+					<th class="cloro-Goldenrod">德州房间盈利（筹码）</th>
+					
+					
+					<th class="cloro-Green" >百家乐进入兑换筹码</th>
+					<th class="cloro-Green">百家乐补充筹码</th>
+					<th class="color-red">百家乐退出返回筹码</th>
+					<th class="cloro-Goldenrod">百家乐房间盈利（筹码）</th>
+					
+					
+					<th class="cloro-Green">老虎机总花费</th>
+                    <th class="color-red">老虎机总获得</th>
+                    <th class="color-red">老虎机总小游戏获得</th>
+                    <th class="cloro-Goldenrod">老虎机总盈利</th>
+                    
+                   
+					<th>幸运转盘</th>
+					<th>幸运匹配</th>
+					<th>幸运匹配花费</th>
+					
+					<th>转账</th>
+					
+					<th>购买商品</th>
+					
+					
+					
+					<th>vip初始奖励</th>
+					<th>vip每天奖励</th>
+					<th>vip剩余奖励</th>
+					
+					<th>活动赠送筹码</th>
+					
+					
+					<th>sng费用</th>
+					<th>sng银杯奖励</th>
+					<th>sng金杯奖励</th>
+					<th>sng 退票</th>
+					
+					<th>好友礼物</th>
+					
+
+					<th>月卡初始奖励</th>
+					<th>月卡每天奖励</th>
+					<th>周卡初始奖励</th>
+					<th>周卡每天奖励</th>
+
+				</tr>				
+			</thead>
+			<tbody style="position:relative">		
+			 <tr>
+			 	<td>总和</td>
+					<td>${firstList['c1']}</td>
+					<td>${firstList['c2']}</td>
+					<td>${firstList['c3']}</td>
+					
+					<td>${firstList['c4']}</td>
+                    <td>${firstList['c5']}</td><!--总盈利  -->
+                    
+					<td>${firstList['c6']}</td><!--每周签到  -->
+					<td>${firstList['c7']}</td><!--新手引导奖励  -->
+					<td>${firstList['c8']}</td><!--每日任务领取筹码  -->
+					<td>${firstList['c9']}</td><!--在线奖励领取筹码  -->
+					<td>${firstList['c10']}</td><!--邮件奖励  -->
+					
+					<!--  <td>${one['40']}</td> 美金购买  -->	
+					<td>${firstList['c11']}</td><!--创建角色初始筹码  -->	
+					<td>${firstList['c12']}</td><!--fb登陆赠送  -->	
+					<td>${firstList['c13']}</td><!--fb邀请奖励  -->	
+					<td>${firstList['c14']}</td><!--成就系统  -->
+					<td>${firstList['c15']}</td><!--德州彩金返还  -->
+					<td>${firstList['c16']}</td><!--老虎机彩金返还  -->
+					
+					<td>${firstList['c17']}</td><!--发送互动道具  -->
+					<td>${firstList['c18']}</td><!--百家乐明灯复活  -->
+					
+					<td>${firstList['c19']}</td><!-- 德州小费 -->
+					<td>${firstList['c20']}</td><!--德州房间补充筹码  -->
+					<td>${firstList['c21']}</td><!--德州房间换取筹码  -->
+					<td>${firstList['c22']}</td><!-- 德州退出房间 -->
+					<td>${firstList['c23']}</td><!-- 机器人补充筹码 -->
+					<td>${firstList['c24']}</td><!-- 德州房间盈利（筹码） -->
+					
+					<td>${firstList['c25']}</td><!--百家乐进入兑换筹码  -->
+					<td>${firstList['c26']}</td><!-- 百家乐补充筹码 -->
+					<td>${firstList['c27']}</td><!-- 百家乐退出返回筹码 -->
+					<td>${firstList['c28']}</td><!--百家乐房间盈利（筹码）  -->
+					
+	                <td></td>
+	                <td> </td>
+	                <td></td>
+	                  
+	                <td></td>
+					
+					
+					<td></td>
+					<td></td>
+					<td></td>
+					
+					
+					<td></td>
+					
+					
+					<td></td><!--  -->
+					
+					
+									
+					<td></td><!--  -->
+					<td></td><!--  -->
+					<td></td><!--  -->
+
+					<td></td><!--  -->
+					
+					
+					<td></td><!--  -->
+					<td></td><!--  -->
+					<td></td><!--  -->
+					<td></td><!--  -->
+					
+					<td></td><!--  -->
+					
+					<td></td><!--  -->
+					<td></td><!--  -->
+					<td></td><!--  -->
+					<td></td><!--  -->
+
+
+
+			 </tr>
+			 <c:forEach items="${sum_daily}" var="one">
+				
+				<tr id="tr_${user.id }" class="gradeA">
+					<!--<td style="position:absolute;border-right:1px solid #DDD;background-color:#f1f1f1">${one.date}</td>-->
+					<td>${one.date}</td>
+					<!-- 
+					<td>${n1}</td>
+					<td>${n2}</td>
+					<td>${n3}</td>
+					
+					 -->
+					
+					
+					
+					<td>${one['999999999']}</td>
+					<td>${one['40']}</td>
+					<td>${one['5']+one['24']+one['18']+one['19']+one['6']+one['501']+one['38']+one['37']+one['505']+one['39']+one['503']}</td>
+					
+				
+				 <td><c:choose>
+                       <c:when test="${(one['34']-one['35']-one['36']) !=0 }"> 
+                        ${one['500']+one['16']+one['14']+one['1']-one['2']-one['26']+one['29']+one['27']-one['28']+one['34']-one['35']-one['36']}
+                       </c:when>
+                       <c:otherwise>
+                       ${one['500']+one['16']+one['14']+one['1']-one['2']-one['26']+one['29']+one['27']-one['28']+one['51']+one['52']+one['53']+one['54']+one['55']+one['56']+one['57']+one['58']+one['59']+one['60']+one['61']+one['62']+one['63']+one['64']+one['65']+one['66']+one['67']+one['68']+one['69']+one['70']+one['71']+one['72']+one['73']+one['74']+one['75']+one['76']+one['77']+one['78']+one['79']+one['80']+one['81']+one['82']+one['83']+one['84']+one['85']+one['86']+one['87']+one['88']+one['89']+one['90']
+					-(one['116']+one['117']+one['118']+one['119']+one['120']+one['121']+one['122']+one['123']+one['124']+one['125']+one['126']+one['127']+one['128']+one['129']+one['130']+one['131']+one['132']+one['133']+one['134']+one['135']+one['136']+one['137']+one['138']+one['139']+one['140']+one['141']+one['142']+one['143']+one['144']+one['145']+one['146']+one['147']+one['148']+one['149']+one['150']+one['151']+one['152']+one['153']+one['154']+one['155'])
+					-(one['181']+one['182']+one['183']+one['184']+one['185']+one['186']+one['187']+one['188']+one['189']+one['190']+one['191']+one['192']+one['193']+one['194']+one['195']+one['196']+one['197']+one['198']+one['199']+one['200']+one['201']+one['202']+one['203']+one['204']+one['205']+one['206']+one['207']+one['208']+one['209']+one['210']+one['211']+one['212']+one['213']+one['214']+one['215']+one['216']+one['217']+one['218']+one['219']+one['220'])}
+                       </c:otherwise>
+                  </c:choose></td>
+                  
+                  <td><c:choose>
+                       <c:when test="${(one['34']-one['35']-one['36']) !=0 }"> 
+                        ${(one['500']+one['16']+one['14']+one['1']-one['2']-one['26']+one['29']+one['27']-one['28']+one['34']-one['35']-one['36'])-(one['5']+one['24']+one['18']+one['19']+one['6']+one['501']+one['38']+one['37']+one['505']+one['39']+one['503'])}
+                       </c:when>
+                       <c:otherwise>
+                       ${(one['500']+one['16']+one['14']+one['1']-one['2']-one['26']+one['29']+one['27']-one['28']+one['51']+one['52']+one['53']+one['54']+one['55']+one['56']+one['57']+one['58']+one['59']+one['60']+one['61']+one['62']+one['63']+one['64']+one['65']+one['66']+one['67']+one['68']+one['69']+one['70']+one['71']+one['72']+one['73']+one['74']+one['75']+one['76']+one['77']+one['78']+one['79']+one['80']+one['81']+one['82']+one['83']+one['84']+one['85']+one['86']+one['87']+one['88']+one['89']+one['90']
+					-(one['116']+one['117']+one['118']+one['119']+one['120']+one['121']+one['122']+one['123']+one['124']+one['125']+one['126']+one['127']+one['128']+one['129']+one['130']+one['131']+one['132']+one['133']+one['134']+one['135']+one['136']+one['137']+one['138']+one['139']+one['140']+one['141']+one['142']+one['143']+one['144']+one['145']+one['146']+one['147']+one['148']+one['149']+one['150']+one['151']+one['152']+one['153']+one['154']+one['155'])
+					-(one['181']+one['182']+one['183']+one['184']+one['185']+one['186']+one['187']+one['188']+one['189']+one['190']+one['191']+one['192']+one['193']+one['194']+one['195']+one['196']+one['197']+one['198']+one['199']+one['200']+one['201']+one['202']+one['203']+one['204']+one['205']+one['206']+one['207']+one['208']+one['209']+one['210']+one['211']+one['212']+one['213']+one['214']+one['215']+one['216']+one['217']+one['218']+one['219']+one['220']))-(one['5']+one['24']+one['18']+one['19']+one['6']+one['501']+one['38']+one['37']+one['505']+one['39']+one['503'])}
+                       </c:otherwise>
+                  </c:choose></td><!--总盈利  -->
+                  
+                  
+                  
+					
+					<td>${one['5']}</td><!--每周签到  -->
+					<td>${one['24']}</td><!--新手引导奖励  -->
+					<td>${one['18']}</td><!--每日任务领取筹码  -->
+					<td>${one['19']}</td><!--在线奖励领取筹码  -->
+					<td>${one['6']}</td><!--邮件奖励  -->
+					<!--  <td>${one['40']}</td> 美金购买  -->	
+					<td>${one['501']}</td><!--创建角色初始筹码  -->	
+					<td>${one['38']}</td><!--fb登陆赠送  -->	
+					<td>${one['37']}</td><!--fb邀请奖励  -->	
+					<td>${one['505']}</td><!--成就系统  -->
+					<td>${one['39']}</td><!--德州彩金返还  -->
+					<td>${one['503']}</td><!--老虎机彩金返还  -->
+					
+					
+					<td>${one['4']}</td><!--发送互动道具  -->
+					<td>${one['500']}</td><!--百家乐明灯复活  -->
+					
+					
+					<td>${one['16']}</td><!-- 德州小费 -->
+					<td>${one['14']}</td><!--德州房间补充筹码  -->
+					<td>${one['1']}</td><!--德州房间换取筹码  -->
+					<td>${one['2']}</td><!-- 德州退出房间 -->
+					<td>${one['26']}</td><!-- 机器人补充筹码 -->
+					<td>${one['16']+one['14']+one['1']-one['2']-one['26']}</td><!-- 德州房间盈利（筹码） -->
+					
+
+					<td>${one['27']}</td><!--百家乐进入兑换筹码  -->
+					<td>${one['29']}</td><!-- 百家乐补充筹码 -->
+					<td>${one['28']}</td><!-- 百家乐退出返回筹码 -->
+					<td>${one['29']+one['27']-one['28']}</td><!--百家乐房间盈利（筹码）  -->
+					
+					
+                  <td><c:choose>
+                       <c:when test="${one['34'] != null}">
+                             ${one['34']}
+                       </c:when>
+                       <c:otherwise>
+                       ${one['51']+one['52']+one['53']+one['54']+one['55']+one['56']+one['57']+one['58']+one['59']+one['60']+one['61']+one['62']+one['63']+one['64']+one['65']+one['66']+one['67']+one['68']+one['69']+one['70']+one['71']+one['72']+one['73']+one['74']+one['75']+one['76']+one['77']+one['78']+one['79']+one['80']+one['81']+one['82']+one['83']+one['84']+one['85']+one['86']+one['87']+one['88']+one['89']+one['90']}
+                       </c:otherwise>
+                  </c:choose></td>
+                  
+                  <td> <c:choose>
+                       <c:when test="${one['35'] != null}">
+                       ${one['35']}
+                       </c:when>
+                       <c:otherwise>
+                       ${one['116']+one['117']+one['118']+one['119']+one['120']+one['121']+one['122']+one['123']+one['124']+one['125']+one['126']+one['127']+one['128']+one['129']+one['130']+one['131']+one['132']+one['133']+one['134']+one['135']+one['136']+one['137']+one['138']+one['139']+one['140']+one['141']+one['142']+one['143']
+                         +one['144']+one['145']+one['146']+one['147']+one['148']+one['149']+one['150']+one['151']+one['152']+one['153']+one['154']+one['155']
+                       }
+                       </c:otherwise>
+                  </c:choose></td>
+                  
+                  <td> <c:choose>
+                       <c:when test="${one['36']  != null}">
+                       ${one['36']}
+                       </c:when>
+                       <c:otherwise>
+                       ${one['181']+one['182']+one['183']+one['184']+one['185']+one['186']+one['187']+one['188']+one['189']+one['190']+one['191']+one['192']+one['193']+one['194']+one['195']+one['196']+one['197']+one['198']+one['199']+one['200']+one['201']+one['202']+one['203']+one['204']+one['205']+one['206']+one['207']+one['208']
+                       +one['209']+one['210']+one['211']+one['212']+one['213']+one['214']+one['215']+one['216']+one['217']+one['218']+one['219']+one['220']
+                       }
+                       </c:otherwise>
+                  </c:choose> </td>
+                  
+                  <td><c:choose>
+                       <c:when test="${(one['34']-one['35']-one['36']) !=0 }">
+                        ${one['34']-one['35']-one['36']}
+                       </c:when>
+                       <c:otherwise>
+                       ${one['51']+one['52']+one['53']+one['54']+one['55']+one['56']+one['57']+one['58']+one['59']+one['60']+one['61']+one['62']+one['63']+one['64']+one['65']+one['66']+one['67']+one['68']+one['69']+one['70']+one['71']+one['72']+one['73']+one['74']+one['75']+one['76']+one['77']+one['78']+one['79']+one['80']+one['81']+one['82']+one['83']+one['84']+one['85']+one['86']+one['87']+one['88']+one['89']+one['90']
+					-(one['116']+one['117']+one['118']+one['119']+one['120']+one['121']+one['122']+one['123']+one['124']+one['125']+one['126']+one['127']+one['128']+one['129']+one['130']+one['131']+one['132']+one['133']+one['134']+one['135']+one['136']+one['137']+one['138']+one['139']+one['140']+one['141']+one['142']+one['143']+one['144']+one['145']+one['146']+one['147']+one['148']+one['149']+one['150']+one['151']+one['152']+one['153']+one['154']+one['155'])
+					-(one['181']+one['182']+one['183']+one['184']+one['185']+one['186']+one['187']+one['188']+one['189']+one['190']+one['191']+one['192']+one['193']+one['194']+one['195']+one['196']+one['197']+one['198']+one['199']+one['200']+one['201']+one['202']+one['203']+one['204']+one['205']+one['206']+one['207']+one['208']+one['209']+one['210']+one['211']+one['212']+one['213']+one['214']+one['215']+one['216']+one['217']+one['218']+one['219']+one['220'])}
+                       </c:otherwise>
+                  </c:choose></td>
+					
+					
+					<td>${one['31']}</td><!--  -->
+					<td>${one['32']}</td><!--  -->
+					<td>${one['33']}</td><!--  -->
+					
+					
+					<td>${one['30']}</td><!--  -->
+					
+					
+					<td>${one['3']}</td><!--  -->
+					
+					
+									
+					<td>${one['11']}</td><!--  -->
+					<td>${one['12']}</td><!--  -->
+					<td>${one['13']}</td><!--  -->
+
+					<td>${one['15']}</td><!--  -->
+					
+					
+					<td>${one['20']}</td><!--  -->
+					<td>${one['21']}</td><!--  -->
+					<td>${one['22']}</td><!--  -->
+					<td>${one['23']}</td><!--  -->
+					
+					<td>${one['25']}</td><!--  -->
+					
+					<td>${one['7']}</td><!--  -->
+					<td>${one['8']}</td><!--  -->
+					<td>${one['9']}</td><!--  -->
+					<td>${one['10']}</td><!--  -->
+					
+					
+					
+				</tr>
+			  </c:forEach>
+					
+			</tbody>
+		</table>		
+	</div>
+	</div>	
+</div>
+
+<div id="ami_newwindow" style="display: none;">
+
+</div>
+
+<script charset="utf-8" >
+$(document).ready(function() {
+    $('.dataTables-example').DataTable({
+        "dom": 'lTfigpt',
+        "order":[[0, "desc"]],
+        buttons: [
+                  'copy','excel'
+              ],
+        "tableTools": {
+            "sSwfPath": "js/dataTables/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+});
+
+function go(page)
+{
+	$('.ami_Mask').show();
+	var params = $('#searchForm').formSerialize();
+	
+	var url = $('#searchForm').attr('action') +"&currentPage="+page;
+	$.post(url,params,function (data){
+	
+	$('#PAGECONTENT').html(data);
+	
+	$('.ami_Mask').hide();
+	
+	});
+}
+</script>

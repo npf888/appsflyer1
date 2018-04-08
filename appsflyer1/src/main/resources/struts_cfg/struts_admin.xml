@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="admin" extends="base-default" namespace="/">
+
+		<action name="admin" class="adminAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="toLogin">/index.jsp</result>
+			<result name="toIndex">/index.jsp</result>
+			<result name="query">/admin/admin_list.jsp</result>
+			<result name="toSearch">/template/template_list.jsp</result>
+			<result name="toType">/template/template_type.jsp</result>
+			<result name="addSuccess">/template/template_editSuccess.jsp</result>
+			<result name="toEdit">/admin/admin_Edit.jsp</result>
+			<result name="toDital">/template/template_dital.jsp</result>
+			<result name="toDital_noTitle">/template/template_dital_noTitle.jsp</result>
+			<result name="doAdd">/template/template_success.jsp</result>
+			<result name="page">/page.jsp</result>
+			
+		</action>
+	</package>
+	
+	<package name="right" extends="base-default" namespace="/">
+
+		<action name="right" class="rightAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="toAdd">/admin/role_add.jsp</result>
+			<result name="query">/admin/role_List.jsp</result>
+		</action>
+
+	</package>
+	
+</struts>

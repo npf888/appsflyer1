@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="adminlog" extends="base-default" namespace="/">
+		<action name="adminLog" class="adminLogAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="logrecordquery">/adminlog/adminlog_logrecord.jsp</result>
+		</action>
+	</package>	
+</struts> 

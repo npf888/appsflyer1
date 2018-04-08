@@ -1,0 +1,50 @@
+package com.ami.mail;
+
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ami.common.TimeUtil;
+import com.ami.mail.pojo.AllResourceVO;
+import com.ami.mail.service.AllResourceService;
+import com.ami.weixin.course.schedule.Task;
+
+/**
+ * 发送邮件主类
+ * @author JavaServer
+ *
+ */
+@Service
+public class ScheduleSendMail extends Task{
+	private final static Logger logger = Logger.getLogger(ScheduleSendMail.class);
+	
+	@Autowired
+	private  AllResourceService allResourceService;
+	
+	@Override
+	public void execute() {
+		try {
+			
+			SendMail sendMail = new SendMail();
+			//设置数据源
+			List<AllResourceVO> allResource= allResourceService.getAllResource();
+			if(allResource != null && allResource.size()>0){
+				for(AllResourceVO resource:allResource){
+					sendMail.addSource(resource);
+				}
+			}
+			//设置接收人员
+			sendMail.setReceiveMailAccounts(allResourceService.getReceivePeople());
+			sendMail.send();
+			logger.info(TimeUtil.format(new Date())+"---------------------------分界线------------------------------------------------------------------------------------------------------------");
+			sendMail.getReceiveMailAccounts().clear();
+			allResourceService.getAllResource().clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

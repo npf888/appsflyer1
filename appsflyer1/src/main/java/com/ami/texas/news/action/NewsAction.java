@@ -1,0 +1,221 @@
+package com.ami.texas.news.action;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.ami.api.common.AppConstant;
+import com.ami.api.common.Pager;
+import com.ami.api.exception.APIException;
+import com.ami.api.utill.DateTools;
+import com.ami.api.utill.HttpURLConnectionUtil;
+import com.ami.api.utill.StringTool;
+import com.ami.api.web.action.BaseAction;
+import com.ami.texas.news.service.NewsService;
+
+
+/**
+ * 活动配置相关
+ * 
+ * @author Cici
+ * @version [版本号, 2013-5-29]
+ * @see [相关类/方法]
+ * @since [产品/模块版本]
+ */
+@Scope("prototype")
+@Component
+public class NewsAction extends BaseAction
+{
+	private static Logger logger = Logger.getLogger(NewsAction.class);
+    /**
+     * 注释内容
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Autowired
+    NewsService newsService;
+
+    
+    
+    /**
+     * 获取所有跑马灯
+     * 
+     * @return
+     * @throws APIException 
+     * @see [类、类#方法、类#成员]
+     */
+    public String queryNews() throws APIException
+    {
+        
+        Pager pager = new Pager(this.getReq());
+        
+        // 调用逻辑类 查询到结果
+        pager = newsService.queryNews(pager);
+        
+        this.set("PAGER", pager);
+        
+        return "queryNews";
+    }
+    /**
+     * 修改活动信息
+     * 
+     * @throws IOException
+     * @see [类、类#方法、类#成员]
+     */
+    public void doEditNews()
+        throws IOException
+    {
+        Map<String, String> response = new HashMap<String, String>();
+        try
+        {
+            String field[] = new String[]
+            {"title", "start_time", "end_time", "description"};
+            
+            Map<String, Object> parameters = this.reqToMap(field);
+            
+            String id = this.get("id");
+            
+            newsService.updateActivity(parameters, id);
+            
+            this.set("id", "id");
+            
+            response.put("result", "success");
+            response.put("id", id);
+        }
+        catch (Exception e)
+        {
+            response.put("result", "fail");
+            response.put("error", e.getMessage());
+            
+            logger.error("add Exception", e);
+        }
+        printJosn(response);
+    }
+
+   
+    /**
+     * 获取修改或添加动作
+     * 
+     * @return
+     * @throws Exception
+     * @see [类、类#方法、类#成员]
+     */
+    public String toEditNews()
+        throws Exception
+    {
+        String id = this.get("id");
+        
+        String method = "doAddNews";
+        
+        if (!StringTool.isEmpty(id))
+        {
+            Map<String, Object> one = newsService.loadActivityByID(id);
+            method = "doEditNews";
+            this.set("one", one);
+        }
+        
+        this.set("method", method);
+        this.set("a_type", this.get("a_type"));
+        return "updateNews";
+    }
+
+/*    
+
+    public static void main(String args[]) throws Exception
+    {
+        NewsAction ac = new NewsAction();
+        ac.postNewsJsonData();
+        
+    }*/
+    
+    public void postNewsJsonData() throws Exception
+    {
+    	try{
+	        JSONObject news_detail = new JSONObject();
+	        /*Map<String, Object> parameters = new HashMap<String, Object>();
+	
+	        parameters.put("content","9月单词充值达到50 将会有丰厚礼品送给您");
+	        String startTime = "2015-10-03" + " 00:00:00";
+	        String endTime = "2015-10-08" + " 23:59:59";
+	        String dailyStartTime = "00:00"+":00";
+	        String dailyEndTime = "23:59"+":59";
+	        
+	        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");                      
+	        Long start_time = sf.parse(startTime).getTime();
+	        Long end_time = sf.parse(endTime).getTime();
+	        Long daily_start_time = tf.parse(dailyStartTime).getTime();
+	        Long daily_end_time = tf.parse(dailyEndTime).getTime();
+	        parameters.put("intervalTime", 5); */
+	        
+	        String field[] = new String[]
+	        {"content", "intervalTime","startTime", "endTime"};        
+	        Map<String, Object> parameters = this.reqToMap(field);
+	        long id = newsService.getLastNoticeId();
+	        parameters.put("id", id+1);
+	       
+	        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
+	        
+	        Long start_time = DateTools.timeStr2Long(parameters.get("startTime").toString()+" 00:00:00" , "yyyy-MM-dd HH:mm:ss");
+	        Long end_time = DateTools.timeStr2Long(parameters.get("endTime").toString()+" 23:59:59" , "yyyy-MM-dd HH:mm:ss");
+	        
+	        String ttt[]  = this.get("dailyStartTime").split(":");
+	
+	        Long daily_start_time = Long.parseLong(ttt[0])*3600*1000+Long.parseLong(ttt[1])*60*1000;
+	        
+	        String ttt2[] = this.get("dailyEndTime").split(":");
+	        Long daily_end_time = Long.parseLong(ttt2[0])*3600*1000+Long.parseLong(ttt2[1])*60*1000;
+	
+	        parameters.put("startTime",start_time);
+	        parameters.put("endTime",end_time);
+	        parameters.put("dailyStartTime", daily_start_time);
+	        parameters.put("dailyEndTime", daily_end_time);
+	        parameters.put("intervalTime", Integer.parseInt(parameters.get("intervalTime").toString()));
+	        
+	        //远程调用写业务逻辑
+	        news_detail = (JSONObject)JSON.toJSON(parameters);
+	        System.out.println(news_detail);
+	        String url =  AppConstant.SERVER_URL_HTTP+"api/serverNotice";
+	        JSONObject result = HttpURLConnectionUtil.post(url, news_detail);	
+	        System.out.println(result);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    }
+    
+    /**
+     * 根据id删除跑马灯
+     * <功能详细描述>
+     * @see [类、类#方法、类#成员]
+     */
+    public void deleteNews()
+    {
+        int id = Integer.parseInt(this.get("id"));
+        try{
+        	
+        	 String url =  AppConstant.SERVER_URL_HTTP+"api/serverNotice?id="+id;
+ 	        JSONObject result = HttpURLConnectionUtil.get(url);	
+ 	        if(result.containsKey("errorCode")){
+ 	        	int value = (int) result.get("errorCode");
+ 	        	if(value == 0){
+ 	        		print(id+" 跑马灯删除成功");
+ 	        	}else{
+ 	        		print(id+" 跑马灯删除失败");
+ 	        	}
+ 	        }
+        }catch (Exception e)
+        {
+            logger.error("Delete Exception", e);
+        }
+    }
+    
+}
+

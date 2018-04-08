@@ -1,0 +1,264 @@
+package com.ami.api.init;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.ServletContext;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ServletContextAware;
+
+import com.ami.api.common.AppConstant;
+import com.ami.api.common.SystemTask;
+import com.ami.api.db.DBDataSource;
+import com.ami.api.db.DBManagerService;
+import com.ami.api.db.DBManagerService_Mysql;
+import com.ami.api.db.DBManagerService_mdsp;
+import com.ami.api.exception.APIException;
+import com.ami.common.schedule.ScheduleImpl;
+import com.ami.mail.ScheduleSendMail;
+import com.ami.sys.right.service.RightService;
+import com.ami.weixin.course.schedule.MyTask1;
+import com.ami.weixin.course.schedule.MyTask2;
+import com.ami.weixin.course.util.UrlProperties;
+
+/**
+ * 
+ * <涓�鍙ヨ瘽鍔熻兘绠�杩�> <鍔熻兘璇︾粏鎻忚堪>
+ * 
+ * @author zhuweiliang
+ * @version [鐗堟湰鍙�, Apr 17, 2012]
+ * @see [鐩稿叧绫�/鏂规硶]
+ * @since [浜у搧/妯″潡鐗堟湰]
+ */
+
+public class SystemInit implements ServletContextAware
+{
+    private final static Logger logger = Logger.getLogger(SystemInit.class);
+    
+    private ApplicationInitInte applicationInitInte;
+    
+    private ServletContext servletContext;
+    
+    @Autowired
+    private SystemTask systemTask;
+    
+    @Autowired
+    private DBManagerService db;
+    
+    @Autowired
+    private DBManagerService_Mysql mysql_db;
+    
+    @Autowired
+    private DBManagerService_mdsp feedback_db;
+    
+    @Autowired
+    RightService rightService;
+    @Autowired
+    MyTask2 myTask2;
+    @Autowired
+    MyTask1 myTask1;
+    @Autowired
+    ScheduleSendMail scheduleSendMail;
+    
+    public SystemInit()
+    {
+    }
+    
+    @Override
+    public void setServletContext(ServletContext arg0)
+    {
+        this.servletContext = arg0;
+        
+        contextInitialized();
+    }
+    
+    /**
+     * 鍒濆鍖栫洃鍚櫒,瑙ｆ瀽閰嶇疆鏂囦欢
+     */
+    public void contextInitialized()
+    {
+        try
+        {
+            String userdir = System.getProperty("user.dir").replaceAll("\\\\", "/");
+            
+            AppConstant.systemDir = userdir ;
+            
+            logger.info("load path ---------------:::"+userdir);
+            Log4jInit.init(userdir + "/deploy/log4j.properties");
+            
+            String dbconfPath = userdir + "/deploy/system.properties";
+            
+            String mysql_db_path = userdir + "/deploy/system_mysql.properties";
+            logger.info("load path -------mysql_db_path--------:::"+mysql_db_path);
+
+            String mdsp_feedback_path = userdir + "/deploy/mdsp_feedback.properties";
+            
+            // 鍒濆鍖栨暟鎹簮
+            initDataSource(dbconfPath);
+            
+            initaccountDataSource(mysql_db_path);
+            
+            initfeedbackDataSource(mdsp_feedback_path);
+            
+            
+            // 鍔犺浇鏉冮檺
+            intiRole();
+            
+           
+            // 鍒濆鍖栫郴缁熼厤缃�
+            String systemPath = userdir + "/deploy/system.properties";
+            
+            initSystem(systemPath);
+            
+           
+            
+            logger.info("System init  succes88888888888888888888888888888888s");
+            
+            ScheduledExecutorService writeScheduler = Executors.newSingleThreadScheduledExecutor();
+            
+            //鍒濆鍖栫郴缁熺骇瀹氭椂浠诲姟
+            final ScheduledFuture creatFile = writeScheduler.scheduleAtFixedRate(systemTask, 15, 10, TimeUnit.SECONDS);
+            
+            // 搴旂敤绋嬪簭 鍒濆鍖�
+            applicationInitInte.contextInitialized(servletContext);
+            //璁剧疆瀹氭椂浠诲姟
+            setTimeDS();
+            //鍒濆鍖栭厤缃枃浠�
+            UrlProperties urlProperties = new UrlProperties();
+            urlProperties.setBackstageUrls();
+            urlProperties.setGameServerUrls();
+            servletContext.setAttribute("urlProperties", urlProperties);
+            logger.info("urlProperties-BackstageUrlMap:::"+urlProperties.getBackstageUrlMap().size());
+            logger.info("urlProperties-GameServerUrlMap:::"+urlProperties.getGameServerUrlMap().size());
+        }
+        catch (Exception e)
+        {
+            logger.error("system start fail ", e);
+            System.exit(0);
+            
+        }
+    }
+    private void setTimeDS(){
+    	
+    	//用来调度发送邮件的  每隔 12 小时发送一次邮件
+    	new ScheduleImpl(scheduleSendMail,12*60*60*1000).start();
+    	/**
+    	 * 1 监视定时发送消息 在线人数，新增人数
+    	 */
+    	//设置定时器 myTask1
+//    	new ScheduleImpl(myTask1,900000).start();
+    	
+    	/**
+    	 * 2 定时监听 在线人数，如果到达一定人数，就发警报
+    	 */
+    	//设置定时器 myTask2
+//    	new ScheduleImpl(myTask2,60000).start();
+    }
+    /**
+     * 鍒濆鍖栨暟鎹簮 <鍔熻兘璇︾粏鎻忚堪>
+     * 
+     * @param ctx
+     * @param dbconfPath
+     * @throws IOException
+     * @see [绫汇�佺被#鏂规硶銆佺被#鎴愬憳]
+     */
+    private void initDataSource(String dbconfPath)
+        throws IOException
+    {
+        
+        DBDataSource dbsource = new DBDataSource();
+        // 鍒濆鍖栨暟鎹簮
+        dbsource.init(dbconfPath);
+        
+        db.setDataSource(dbsource.getDataSource());
+        
+        logger.info("1 ,load database info success!!!");
+        
+    }
+    
+    /**
+     * 鍒濆鍖栨暟鎹簮 <鍔熻兘璇︾粏鎻忚堪>
+     * 
+     * @param ctx
+     * @param dbconfPath
+     * @throws IOException
+     * @throws SQLException
+     * @see [绫汇�佺被#鏂规硶銆佺被#鎴愬憳]
+     */
+    private void initaccountDataSource(String dbconfPath)
+        throws IOException, SQLException
+    {
+        
+        DBDataSource dbsource_2 = new DBDataSource();
+        // 鍒濆鍖栨暟鎹簮
+        dbsource_2.init(dbconfPath);
+        
+        mysql_db.setDataSource(dbsource_2.getDataSource());
+        
+        logger.info("2 ,load mysql database info success!!!");
+        
+    }
+    
+	private void initfeedbackDataSource(String dbconfPath) throws IOException, SQLException 
+	{
+
+		DBDataSource dbsource_3 = new DBDataSource();
+		// 鍒濆鍖栨暟鎹簮
+		dbsource_3.init(dbconfPath);
+
+		feedback_db.setDataSource(dbsource_3.getDataSource());
+
+		logger.info("3 ,load feedback database info success!!!");
+
+	}
+    
+    /**
+     * 鍒濆鍖栫郴缁熼厤缃」
+     * 
+     * @param path
+     * @throws IOException
+     */
+    public void initSystem(String path)
+        throws IOException
+    {
+        
+        // PropertyUtill c = new PropertyUtill(path);
+        
+    }
+    
+    /**
+     * 鍔犺浇鎵�鏈夎鑹插垪琛�
+     * 
+     * @param servletContext
+     * @param ctx
+     * @throws APIException
+     */
+    private void intiRole()
+        throws APIException
+    {
+        
+        // 鍔犺浇鎵�鏈夎鑹�
+        Map<String, Map<String, Object>> roleMap = rightService.intiRole();
+        
+        // 鍐呭瓨瀛樺偍涓�浠�
+        AppConstant.roleMap = roleMap;
+        
+        // application 瀛樺偍涓�浠�
+        servletContext.setAttribute("roleMap", rightService.intiRole());
+        
+        servletContext.setAttribute("allNavMap", rightService.loadAllNav());
+    }
+    
+    public void setApplicationInitInte(ApplicationInitInte applicationInitInte)
+    {
+        this.applicationInitInte = applicationInitInte;
+    }
+    
+}

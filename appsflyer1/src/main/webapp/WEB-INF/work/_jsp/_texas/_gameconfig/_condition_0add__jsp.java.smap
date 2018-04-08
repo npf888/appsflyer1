@@ -1,0 +1,14 @@
+SMAP
+_condition_0add__jsp.java
+JSP
+*S JSP
+*F
++ 1 condition_add.jsp
+texas/gameConfig/condition_add.jsp
+*L
+1#1:28
+21#1:29,2
+60#1:31,2
+63#1:33,2
+152#1:35
+*E

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="player" extends="base-default" namespace="/">
+		<action name="player" class="playerAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="queryPlayer">/texas/player/player_list.jsp</result>
+			<result name="doGetPost">/texas/player/player_list.jsp</result>
+			<result name="queryBag">/texas/player/player_bag.jsp</result>
+			<result name="queryFriend">/texas/player/friend_list.jsp</result>
+			<result name="queryFriendRequest">/texas/player/friend_request_list.jsp</result>
+			<result name="queryEmail">/texas/player/email_list.jsp</result>
+			<result name="queryVip">/texas/player/vip.jsp</result>
+			<result name="queryRecharge">/texas/player/recharge.jsp</result>
+			<result name="getlevel">/texas/player/log_getlevel.jsp</result>
+			<result name="queryPlayerLevel">/texas/player/player_list.jsp</result>
+			<result name="queryPlayerBigdata">/texas/player/playerbigdata.jsp</result>
+		</action>
+	</package>
+	<package name="log" extends="base-default" namespace="/">
+		<action name="log" class="logAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="log">/texas/log/log_list.jsp</result>
+			<result name="sumLog">/texas/log/log_sum.jsp</result>
+			<result name="slotLog">/texas/log/log_slot_detail.jsp</result>
+			<result name="jackport">/texas/log/log_jackport.jsp</result>
+			<result name="summary">/texas/log/log_summary.jsp</result>
+			
+			<result name="online">/texas/log/log_online.jsp</result>
+			<result name="ichartOnline">/texas/log/log_onlie_ichart.jsp</result>
+			
+			<result name="channel">/texas/log/log_channel.jsp</result>
+			<result name="equipment">/texas/log/log_equipment.jsp</result>
+			<result name="slotwinner">/texas/log/log_slotwinner.jsp</result>
+			<result name="slotMaxSpin">/texas/log/log_slotMaxSpin.jsp</result>
+			<result name="versionClient">/texas/log/log_versionClient.jsp</result>
+			<result name="orderDetails">/texas/log/log_orderDetails.jsp</result>
+			<result name="retained">/texas/log/log_retained.jsp</result>
+			<result name="retainedCountry">/texas/log/log_retained_country.jsp</result>
+			<result name="slotspindetail">/texas/log/log_slotspindetail.jsp</result>
+			<result name="topupdetail">/texas/log/log_topupdetail.jsp</result>
+			<result name="loginRate">/texas/log/log_loginrate.jsp</result>
+			
+		</action>
+	</package>
+	
+	<package name="activity" extends="base-default" namespace="/">
+		<action name="activity" class="activityAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="updateActivity">/texas/gameConfig/activity_edit.jsp</result>
+			<result name="queryActivity">/texas/gameConfig/activity_list.jsp</result>		
+			<!-- <result name="success" type="redirectAction">  
+			    <param name="actionName">activity</param>  
+			     <param name="method">queryActivity</param>
+			</result>  -->
+			<!-- <result name="success" type="redirect">/activity.do?method=queryActivity</result>  -->
+		</action>
+	</package>
+	
+	<package name="game" extends="base-default" namespace="/">
+		<action name="game" class="gameAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="queryMonthCard">/texas/game/monthcard_list.jsp</result>
+			<result name="queryWeekCard">/texas/game/weekcard_list.jsp</result>
+			<result name="queryNews">/texas/game/news_list.jsp</result>
+			<result name="querySignin">/texas/game/signin_list.jsp</result>
+			<result name="queryTexas">/texas/game/texas.jsp</result>
+			<result name="queryTask">/texas/game/task.jsp</result>
+			<result name="queryTaskStatistics">/texas/game/query_task_statistics.jsp</result>
+			<result name="queryBaccart">/texas/game/baccarat.jsp</result>
+			<result name="queryBaccartRoom">/texas/game/baccarat_room.jsp</result>
+			<result name="queryOther">/texas/game/other.jsp</result>
+		</action>
+	</package>
+	
+	<package name="news" extends="base-default" namespace="/">
+		<action name="news" class="newsAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="updateNews">/texas/gameConfig/news_edit.jsp</result>
+			<result name="queryNews">/texas/gameConfig/news_list.jsp</result>		
+		</action>
+	</package>
+	
+		
+	<package name="img" extends="base-default" namespace="/">
+		<action name="img" class="imgAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="addImg">/texas/img/img_upload.jsp</result>
+			<result name="queryImg">/texas/img/img_upload.jsp</result>		
+		</action>
+	</package>
+
+	<package name="compensation" extends="base-default" namespace="/">
+		<action name="compensation" class="compensationAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="edit">/texas/gameConfig/compensation_edit.jsp</result>
+			<result name="query">/texas/gameConfig/compensation_list.jsp</result>		
+			<result name="addUserCompensation">/texas/gameConfig/add_user_compensation.jsp</result>	
+		</action>
+	</package>
+		
+	<package name="server" extends="base-default" namespace="/">
+		<action name="server" class="serverAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="addServer">/texas/server/server_add.jsp</result>
+			<result name="queryServer">/texas/server/server_list.jsp</result>		
+		</action>
+	</package>
+	
+	<package name="condition" extends="base-default" namespace="/">
+		<action name="condition" class="conditionAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="queryCondition">/texas/gameConfig/condition_list.jsp</result>
+			<result name="toAddCondition">/texas/gameConfig/condition_add.jsp</result>
+		</action>
+	</package>
+	
+			
+	<package name="baccarat" extends="base-default" namespace="/">
+		<action name="baccarat" class="baccaratAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="queryBaccartRoom">/texas/game/baccarat_room.jsp</result>
+				
+		</action>
+	</package>
+	
+		
+	<package name="feedback" extends="base-default" namespace="/">
+		<action name="feedback" class="feedbackAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="toReply">/texas/feedback/feedback_reply.jsp</result>
+			<result name="query">/texas/feedback/feedback_list.jsp</result>
+			<result name="addDataPage">/texas/feedback/feedback_add.jsp</result>
+		</action>
+	</package>
+	<package name="code" extends="base-default" namespace="/">
+		<action name="code" class="codeAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="queryCode">/texas/code/code_list.jsp</result>
+			<result name="editCode">/texas/code/code_add.jsp</result>
+		</action>
+	</package>
+	
+
+</struts>

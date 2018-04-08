@@ -1,0 +1,18 @@
+#######################################################
+####          \ufffd\ufffd\u077f\ufffd\ufffd\ufffd\ufffd\ufffd              ############
+#######################################################
+
+driver=com.mysql.jdbc.Driver
+
+
+url=jdbc:mysql://47.88.137.21:3306/sys_admin_texas?useUnicode=true&characterEncoding=UTF-8
+
+
+userName=root
+
+userPwd=root
+
+
+
+
+resources_path=/home/zhuweiliang/resources/service/ROOT/

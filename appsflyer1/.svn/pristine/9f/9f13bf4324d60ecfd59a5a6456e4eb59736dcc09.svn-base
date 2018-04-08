@@ -1,0 +1,274 @@
+package com.ami.texas.gamenew.dao;
+
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+import com.ami.api.common.Pager;
+import com.ami.api.exception.APIException;
+import com.ami.api.utill.StringTool;
+import com.ami.api.web.dao.BaseMysqlDao;
+import com.ami.common.TimeUtil;
+import com.ami.texas.gamenew.pojo.CollectPO;
+import com.ami.texas.gamenew.pojo.TournamentPO;
+import com.ami.texas.gamenew.pojo.WorldBossDetailPO;
+import com.ami.texas.gamenew.pojo.WorldBossPO;
+@Component
+public class GamenewDao extends BaseMysqlDao{
+	private static Logger logger = Logger.getLogger(GamenewDao.class);
+	public Pager queryCollect(Pager pager, String account, String username) {
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append(" select t1.id,"
+				+ "	t1.humanId,"
+				+ " t1.carIds,"
+				+ " t1.debris,"
+				+ " t1.slotspin,"
+				+ " t1.slotpoint,"
+				+ " t2.name,"
+				+ " t2.level,"
+				+ " if(t1.updateTime=0, '-' , FROM_UNIXTIME(t1.updateTime/1000,'%Y-%m-%d %H:%i:%s')) updateTime,"
+				+ " if(t1.createTime=0, '-' , FROM_UNIXTIME(t1.createTime/1000,'%Y-%m-%d %H:%i:%s')) createTime"
+				+ " from texas.t_human_collect t1 "
+				+ " left join texas.t_human_info t2 "
+				+ " on t1.humanId=t2.passportId "
+				+ " where 1=1 ");
+    
+	   if (!StringTool.isEmpty(account))
+	    {
+	        sql.append(" and t1.humanId like '%");
+	        sql.append(account);
+	        sql.append("%'");
+	    }
+	   if (!StringTool.isEmpty(username))
+	   {
+		   sql.append(" and t2.name like '%");
+		   sql.append(username);
+		   sql.append("%'");
+	   }
+	
+		try{
+			pager = this.db.queryPage(sql.toString(), new Object[]{}, pager,CollectPO.class);
+		}catch(Exception e){
+			logger.error("收集系统错误报告：：", e);
+		}
+	    return pager; 
+	}
+	public List<CollectPO>  querycollect() {
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append(" select t1.id,"
+				+ "	t1.humanId,"
+				+ " t1.carIds,"
+				+ " t1.debris,"
+				+ " t1.slotspin,"
+				+ " t1.slotpoint,"
+				+ " t2.name,"
+				+ " t2.level,"
+				+ " if(t1.updateTime=0, '-' , FROM_UNIXTIME(t1.updateTime/1000,'%Y-%m-%d %H:%i:%s')) updateTime,"
+				+ " if(t1.createTime=0, '-' , FROM_UNIXTIME(t1.createTime/1000,'%Y-%m-%d %H:%i:%s')) createTime"
+				+ " from texas.t_human_collect t1 "
+				+ " left join texas.t_human_info t2 "
+				+ " on t1.humanId=t2.passportId "
+				+ " where 1=1 ");
+		try {
+			List<CollectPO> collectVOList = this.db.query(sql.toString(), CollectPO.class);
+			return collectVOList;
+		} catch (APIException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	/**
+	 * 判断表是否存在
+	 * @param startDate
+	 * @param dateList
+	 * @throws APIException
+	 */
+	/*public void existTable(String startDate,List<String> dateList) {
+		try {
+			String tableName = "world_boss_log_"+startDate;
+			String tableSql = "select table_name from information_schema.tables where table_name='"+tableName+"'";
+			List<HashMap<String,Object>> tableMap = this.db.query(tableSql);
+			if(tableMap != null && tableMap.size() > 0){
+				dateList.add(startDate);
+			}
+		} catch (APIException e1) {
+			logger.error("世界boss 表不存在问题,当前sql"+tableSql,e1);
+		}
+		
+	}
+	public void getDateList(){
+		List<String> dateList = new ArrayList<String>();
+		if(startDate.equals(endDate)){
+			existTable(startDate,dateList);
+		}else{
+			//先判断开始日期 对应的表是否存在
+			existTable(startDate,dateList);
+			//在判断 第二天，第三天，第四天  等等 最终 到和 endDate 相等的那一天
+			while(true){
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(TimeUtil.formatStrTODate(startDate));
+				calendar.add(Calendar.DAY_OF_MONTH, 1);
+				String nextDate = TimeUtil.formatYMDHMTime(calendar.getTime().getTime());
+				if(nextDate.equals(endDate)){
+					existTable(nextDate,dateList);
+					break;
+				}
+				existTable(nextDate,dateList);
+			}
+		}
+	}*/
+	public Pager queryWorldBoss(Pager pager, String account, String bossType,String startDate,String endDate) {
+		
+			StringBuffer sql = new StringBuffer(" ");
+			sql.append(" select "
+					+ " t1.startTime,"
+					+ "	t1.endTime,"
+					
+					+ " t1.bossId,"
+					+ " t1.type,"
+					+ " t1.airtime,"
+					+ " t1.wildreduce,"
+					+ " t1.recover1,"
+					+ " t1.damagereduce,"
+					+ " t1.avoid,"
+					+ " t1.blood,"
+					+ " t1.changingBlood,"
+					+ " t1.increaseBlood,"
+					+ " t1.rewardNum1,"
+					+ " t1.rewardNum2,"
+					+ " t1.beKilled,"
+					+ " t1.attackRank,"
+					+ " t1.continueTime"
+					
+					+ " from texas.t_boss t1 "
+					+ " where 1=1 ");
+			
+				if(!StringUtils.isEmpty(startDate)){
+					sql.append( " and DATE_FORMAT(t1.startTime,'%Y-%m-%d')>='"+startDate+"' ");
+				}
+				if(!StringUtils.isEmpty(endDate)){
+					sql.append( " and DATE_FORMAT(t1.endTime,'%Y-%m-%d')<='"+endDate+"'");
+				}
+				
+				if(!StringUtils.isEmpty(bossType)){
+					sql.append( " and t1.type='"+bossType+"'");
+				}
+					
+		
+		try {
+			return this.db.queryPage(sql.toString(),pager, WorldBossPO.class);
+		} catch (APIException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	public Pager queryWorldBossDetail(Pager pager, String bossId, String date) {
+		String[] dateArr = date.split(" ");
+		String tabledate = TimeUtil.formatYMDHMTime(TimeUtil.formatStrTODateff(dateArr[0]).getTime());
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append(" select account_id as accountId,"
+				+ "	account_name as accountName,"
+				+ "	level,"
+				+ "	reason,"
+				+ " boss_type as bossType,"
+				+ " starttime,"
+				+ " begin_end as beginEnd,"
+				+ " blood_begin_end as bloodBeginEnd,"
+				+ " cur_attack_blood as curAttackBlood,"
+				+ " boss_id as bossId,"
+				+ " if(createTime=0, '-' , FROM_UNIXTIME(createTime/1000,'%Y-%m-%d %H:%i:%s')) createTime"
+				+ "  from texas_log.world_boss_log_"+tabledate
+				+ "  where boss_id ="+bossId );
+	
+	
+		try {
+			return this.db.queryPage(sql.toString(),pager, WorldBossDetailPO.class);
+		} catch (APIException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public Pager queryTournament(Pager pager, String account, String username,String date) {
+		String tabledate = TimeUtil.formatYMDHMTime(TimeUtil.formatStrTODateff(date).getTime());
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append(" select account_id as accountId,"
+				+ "	account_name as accountName,"
+				+ "	level,"
+				+ "	reason,"
+				+ " tournament_id as tournamentId,"
+				+ " tournament_type as tournamentType,"
+				+ " slot_type as slotType,"
+				+ " total_reward as totalReward,"
+				+ " reward,"
+				+ " rewards,"
+				+ " obtained_reward as obtainedReward,"
+				+ " if(createTime=0, '-' , FROM_UNIXTIME(createTime/1000,'%Y-%m-%d %H:%i:%s')) createTime"
+				+ "  from texas_log.tournament_log_"+tabledate
+				+ "  where account_id =-1 " );
+	
+	
+		try {
+			return this.db.queryPage(sql.toString(),pager, TournamentPO.class);
+		} catch (APIException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public Pager queryTournament(Pager pager, String tournamentId, String date) {
+		String tabledate = TimeUtil.formatYMDHMTime(TimeUtil.formatStrTODateff(date).getTime());
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append(" select account_id as accountId,"
+				+ "	account_name as accountName,"
+				+ "	level,"
+				+ "	reason,"
+				+ " tournament_id as tournamentId,"
+				+ " tournament_type as tournamentType,"
+				+ " slot_type as slotType,"
+				+ " total_reward as totalReward,"
+				+ " reward,"
+				+ " rewards,"
+				+ " obtained_reward as obtainedReward,"
+				+ " if(createTime=0, '-' , FROM_UNIXTIME(createTime/1000,'%Y-%m-%d %H:%i:%s')) createTime"
+				+ "  from texas_log.tournament_log_"+tabledate
+				+ "  where account_id !=-1 and tournament_id="+tournamentId );
+	
+	
+		try {
+			return this.db.queryPage(sql.toString(),pager, TournamentPO.class);
+		} catch (APIException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public Pager queryWorldBossDetailOne(Pager pager, String bossId, String date) {
+		String[] dateArr = date.split(" ");
+		String tabledate = TimeUtil.formatYMDHMTime(TimeUtil.formatStrTODateff(dateArr[0]).getTime());
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append(" select account_id as accountId,"
+				+ "	account_name as accountName,"
+				+ "	level,"
+				+ "	reason,"
+				+ " boss_type as bossType,"
+				+ " starttime,"
+				+ " begin_end as beginEnd,"
+				+ " blood_begin_end as bloodBeginEnd,"
+				+ " sum(cur_attack_blood) as curAttackBlood,"
+				+ " boss_id as bossId,"
+				+ " if(createTime=0, '-' , FROM_UNIXTIME(createTime/1000,'%Y-%m-%d %H:%i:%s')) createTime"
+				+ "  from texas_log.world_boss_log_"+tabledate
+				+ "  where account_id != -1 and boss_id ="+bossId +" group by account_id ");
+	
+	
+		try {
+			return this.db.queryPage(sql.toString(),pager, WorldBossDetailPO.class);
+		} catch (APIException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

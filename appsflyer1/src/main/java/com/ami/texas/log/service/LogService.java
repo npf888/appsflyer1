@@ -1,0 +1,769 @@
+package com.ami.texas.log.service;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.ami.api.common.Pager;
+import com.ami.api.exception.APIException;
+import com.ami.api.utill.StringTool;
+import com.ami.mail.pojo.Country;
+import com.ami.mail.pojo.NewPeopleVO;
+import com.ami.texas.log.dao.LogDao;
+import com.ami.texas.log.vo.RechargeVO;
+import com.ami.texas.log.vo.SlotAgeVO;
+import com.ami.texas.log.vo.SlotPayVO;
+import com.ami.texas.log.vo.SlotSexVO;
+import com.ami.texas.log.vo.SpinDetailVO;
+
+/**
+ * 
+ * 鐜╁淇℃伅 閫昏緫绫�
+ * 
+ * @author zhuweiliang
+ * @version [鐗堟湰鍙�, 2013-7-10]
+ * @see [鐩稿叧绫�/鏂规硶]
+ * @since [浜у搧/妯″潡鐗堟湰]
+ */
+@Component
+public class LogService
+{
+    @Autowired
+    LogDao logDao;
+    
+    private final static Logger logger = Logger.getLogger(LogService.class);
+    /**
+     * 鍒嗛〉鏌ヨ鐜╁淇℃伅
+     * 
+     * @param pager
+     * @param useraccount 鐢ㄦ埛璐﹀彿
+     * @param username 鐢ㄦ埛濮撳悕
+     * @return
+     * @throws APIException
+     * @throws SQLException 
+     * @see [绫汇�佺被#鏂规硶銆佺被#鎴愬憳]
+     */
+    public Pager queryLog(Pager pager, Map<String, Object> params)
+        throws APIException, SQLException
+    {   
+        pager = logDao.queryLog(pager, params);
+        return pager;
+    }
+
+    public Map<String,Object> getFirstLine(List<Map<String, Object>> list){
+    	Map<String,Object> firstLine = new HashMap<String,Object>();
+    	BigDecimal c1 = new BigDecimal(0);
+    	BigDecimal c2 = new BigDecimal(0);
+    	BigDecimal c3 = new BigDecimal(0);
+    	BigDecimal c4 = new BigDecimal(0);
+    	BigDecimal c5 = new BigDecimal(0);
+    	BigDecimal c6 = new BigDecimal(0);
+    	BigDecimal c7 = new BigDecimal(0);
+    	BigDecimal c8 = new BigDecimal(0);
+    	BigDecimal c9 = new BigDecimal(0);
+    	BigDecimal c10 = new BigDecimal(0);
+    	BigDecimal c11 = new BigDecimal(0);
+    	BigDecimal c12 = new BigDecimal(0);
+    	BigDecimal c13 = new BigDecimal(0);
+    	BigDecimal c14 = new BigDecimal(0);
+    	BigDecimal c15 = new BigDecimal(0);
+    	BigDecimal c16 = new BigDecimal(0);
+    	BigDecimal c17 = new BigDecimal(0);
+    	BigDecimal c18 = new BigDecimal(0);
+    	BigDecimal c19 = new BigDecimal(0);
+    	BigDecimal c20 = new BigDecimal(0);
+    	BigDecimal c21 = new BigDecimal(0);
+    	BigDecimal c22 = new BigDecimal(0);
+    	BigDecimal c23 = new BigDecimal(0);
+    	BigDecimal c24 = new BigDecimal(0);
+    	BigDecimal c25 = new BigDecimal(0);
+    	BigDecimal c26 = new BigDecimal(0);
+    	BigDecimal c27 = new BigDecimal(0);
+    	BigDecimal c28 = new BigDecimal(0);
+    	for(Map<String, Object> map:list){
+    		//绗�1涓�
+    		c1=c1.add((BigDecimal)(map.get("999999999")==null?new BigDecimal(0):map.get("999999999")));
+    		c2=c2.add((BigDecimal)(map.get("40")==null?new BigDecimal(0):map.get("40")));
+    		
+    		//one['5']+one['24']+one['18']+one['19']+one['6']+one['501']+one['38']+one['37']+one['505']+one['39']+one['503']
+    		c3=c3.add((BigDecimal)(map.get("5")==null?new BigDecimal(0):map.get("5"))).add((BigDecimal)(map.get("24")==null?new BigDecimal(0):map.get("24")))
+    				.add((BigDecimal)(map.get("18")==null?new BigDecimal(0):map.get("18")))
+    				.add((BigDecimal)(map.get("19")==null?new BigDecimal(0):map.get("19"))).add((BigDecimal)(map.get("6")==null?new BigDecimal(0):map.get("6")))
+    				.add((BigDecimal)(map.get("501")==null?new BigDecimal(0):map.get("501")))
+    				.add((BigDecimal)(map.get("38")==null?new BigDecimal(0):map.get("38"))).add((BigDecimal)(map.get("37")==null?new BigDecimal(0):map.get("37")))
+    				.add((BigDecimal)(map.get("505")==null?new BigDecimal(0):map.get("505")))
+    				.add((BigDecimal)(map.get("39")==null?new BigDecimal(0):map.get("39"))).add((BigDecimal)(map.get("503")==null?new BigDecimal(0):map.get("503")));
+    		
+    		//one['34']-one['35']-one['36'])
+    		BigDecimal cc4 = new BigDecimal(0);
+    		if(cc4.add((BigDecimal)(map.get("34")==null?new BigDecimal(0):map.get("34")))
+    			  .subtract((BigDecimal)(map.get("35")==null?new BigDecimal(0):map.get("35")))
+    			  .subtract((BigDecimal)(map.get("36")==null?new BigDecimal(0):map.get("36"))).compareTo(new BigDecimal(0)) != 0){
+    		//one['500']+one['16']+one['14']+one['1']-one['2']-one['26']+one['29']+one['27']-one['28']+one['34']-one['35']-one['36']
+    			c4=c4.add((BigDecimal)(map.get("500")==null?new BigDecimal(0):map.get("500")))
+    				 .add((BigDecimal)(map.get("16")==null?new BigDecimal(0):map.get("16")))
+    				 .add((BigDecimal)(map.get("14")==null?new BigDecimal(0):map.get("14")))
+    				 .add((BigDecimal)(map.get("1")==null?new BigDecimal(0):map.get("1")))
+    				 .subtract((BigDecimal)(map.get("2")==null?new BigDecimal(0):map.get("2")))
+    				 .subtract((BigDecimal)(map.get("26")==null?new BigDecimal(0):map.get("26")))
+    				 .add((BigDecimal)(map.get("29")==null?new BigDecimal(0):map.get("29")))
+    				 .add((BigDecimal)(map.get("27")==null?new BigDecimal(0):map.get("27")))
+    				 .subtract((BigDecimal)(map.get("28")==null?new BigDecimal(0):map.get("28")))
+    				 .add((BigDecimal)(map.get("34")==null?new BigDecimal(0):map.get("34")))
+    				 .subtract((BigDecimal)(map.get("35")==null?new BigDecimal(0):map.get("35")))
+    				 .subtract((BigDecimal)(map.get("36")==null?new BigDecimal(0):map.get("36")));
+    		}else{
+//    			c4=c4.add((BigDecimal)(map.get("999999999")==null?new BigDecimal(0):map.get("999999999")));
+    		}
+    		
+//    		if(){
+//    			
+//    		}else{
+//    			c5=c5.add((BigDecimal)(map.get("999999999")==null?new BigDecimal(0):map.get("999999999")));
+    			
+//    		}
+    		
+    		
+    		c6=c6.add((BigDecimal)(map.get("5")==null?new BigDecimal(0):map.get("5")));
+    		c7=c7.add((BigDecimal)(map.get("24")==null?new BigDecimal(0):map.get("24")));
+    		c8=c8.add((BigDecimal)(map.get("18")==null?new BigDecimal(0):map.get("18")));
+    		c9=c9.add((BigDecimal)(map.get("19")==null?new BigDecimal(0):map.get("19")));
+    		c10=c10.add((BigDecimal)(map.get("6")==null?new BigDecimal(0):map.get("6")));
+    		
+    		c11=c11.add((BigDecimal)(map.get("501")==null?new BigDecimal(0):map.get("501")));
+    		c12=c12.add((BigDecimal)(map.get("38")==null?new BigDecimal(0):map.get("38")));
+    		c13=c13.add((BigDecimal)(map.get("37")==null?new BigDecimal(0):map.get("37")));
+    		c14=c14.add((BigDecimal)(map.get("505")==null?new BigDecimal(0):map.get("505")));
+    		c15=c15.add((BigDecimal)(map.get("39")==null?new BigDecimal(0):map.get("39")));
+    		c16=c16.add((BigDecimal)(map.get("503")==null?new BigDecimal(0):map.get("503")));
+    		
+    		
+    		
+    		c17=c17.add((BigDecimal)(map.get("4")==null?new BigDecimal(0):map.get("4")));
+    		c18=c18.add((BigDecimal)(map.get("500")==null?new BigDecimal(0):map.get("500")));
+    		
+    		c19=c19.add((BigDecimal)(map.get("16")==null?new BigDecimal(0):map.get("16")));
+    		c20=c20.add((BigDecimal)(map.get("14")==null?new BigDecimal(0):map.get("14")));
+    		c21=c21.add((BigDecimal)(map.get("1")==null?new BigDecimal(0):map.get("1")));
+    		c22=c22.add((BigDecimal)(map.get("2")==null?new BigDecimal(0):map.get("2")));
+    		c23=c23.add((BigDecimal)(map.get("26")==null?new BigDecimal(0):map.get("26")));
+    		c24=c24.add((BigDecimal)(map.get("16")==null?new BigDecimal(0):map.get("16")));
+    		
+    		
+    		c25=c25.add((BigDecimal)(map.get("27")==null?new BigDecimal(0):map.get("27")));
+    		c26=c26.add((BigDecimal)(map.get("29")==null?new BigDecimal(0):map.get("29")));
+    		c27=c27.add((BigDecimal)(map.get("28")==null?new BigDecimal(0):map.get("28")));
+    		c28=c28.add((BigDecimal)(map.get("29")==null?new BigDecimal(0):map.get("29")))
+    		.add((BigDecimal)(map.get("27")==null?new BigDecimal(0):map.get("27")))
+    		.subtract((BigDecimal)(map.get("28")==null?new BigDecimal(0):map.get("28")));
+    		
+    	}
+    	firstLine.put("c1", c1);
+    	firstLine.put("c2", c2);
+    	firstLine.put("c3", c3);
+    	firstLine.put("c4", c4);
+    	firstLine.put("c5", c5);
+    	firstLine.put("c6", c6);
+    	firstLine.put("c7", c7);
+    	firstLine.put("c8", c8);
+    	firstLine.put("c9", c9);
+    	firstLine.put("c10", c10);
+    	firstLine.put("c11", c11);
+    	firstLine.put("c12", c12);
+    	firstLine.put("c13", c13);
+    	firstLine.put("c14", c14);
+    	firstLine.put("c15", c15);
+    	firstLine.put("c16", c16);
+    	firstLine.put("c17", c17);
+    	firstLine.put("c18", c18);
+    	firstLine.put("c19", c19);
+    	firstLine.put("c20", c20);
+    	firstLine.put("c21", c21);
+    	firstLine.put("c22", c22);
+    	firstLine.put("c23", c23);
+    	firstLine.put("c24", c24);
+    	firstLine.put("c25", c25);
+    	firstLine.put("c26", c26);
+    	firstLine.put("c27", c27);
+    	firstLine.put("c28", c28);
+    	return firstLine;
+    }
+	public List<Map<String, Object>> sumLog(Map<String, Object> params, List<HashMap<String, Object>> date_list) throws APIException {
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		String start = params.get("start").toString();
+		String end = params.get("end").toString();
+		List<HashMap<String, Object>> existDateMapList = new ArrayList<HashMap<String, Object>>();
+		if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end))
+		{
+			for (HashMap<String, Object> map:date_list) {
+			    
+			    String date = map.get("date").toString();
+			    
+			    if (date.compareTo(start) <0 ||date.compareTo(end) >0 )
+			    {
+			    	existDateMapList.add(map);
+			    }
+			}
+		}
+		date_list.removeAll(existDateMapList);
+		List<HashMap<String, Object>> data_list = logDao.dailySum(date_list);
+		if(data_list != null)
+		{	
+			String date ="null";
+			for(HashMap<String,Object> single:data_list){
+				String date1 = single.get("date").toString();
+				//濡傛灉鏃ユ湡涓嶇浉绛� 灏卞垱寤烘柊鐨�
+				if(!date.equals(date1)){
+					Map<String,Object> data = new HashMap<String,Object>();
+					date=date1;
+					data.put("date", date1);
+					data.put(single.get("reason").toString(),single.get("gold"));
+					result.add(data);
+				}else{
+					for(Map<String,Object> sin:result){
+						if(sin.get("date").toString().equals(date)){
+							sin.put(single.get("reason").toString(),single.get("gold"));
+							continue;
+						}
+					}
+				}
+				
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 鑰佺殑鏂规硶涓嶇敤浜�
+	 * @param tableName
+	 * @return
+	 * @throws APIException
+	 */
+	
+	public List<Map<String, Object>> sumLog_COPY(Map<String, Object> params, List<HashMap<String, Object>> date_list) throws APIException {
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		String start = params.get("start").toString();
+		String end = params.get("end").toString();
+		
+		if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end))
+		{
+			for (ListIterator<HashMap<String, Object>> iter = date_list.listIterator(); iter.hasNext(); ) {
+			    HashMap<String, Object> map = iter.next();
+			    
+			    String date = map.get("date").toString();
+			    
+			    if (date.compareTo(start) <0 ||date.compareTo(end) >0 )
+			    {
+			        iter.remove();
+			    }
+			}
+		}
+		for(HashMap<String, Object> map:date_list)
+		{		
+			List<HashMap<String, Object>> data_list = logDao.dailySum_COPY(map.get("date").toString());
+			if(data_list != null)
+			{	
+				Map<String,Object> data = new HashMap<String,Object>();
+			
+				for(Map<String,Object> data_map:data_list)
+				{
+					data.put(data_map.get("reason").toString(), data_map.get("gold"));
+				}
+				data.put("date", map.get("date"));
+				result.add(data);
+			}
+			
+		}
+		return result;
+	}
+	public Map<String, Object> sumLog1(String tableName) throws APIException {
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		List<HashMap<String, Object>> data_list = logDao.dailySum1(tableName);
+		if(data_list != null)
+		{	
+			Map<String,Object> data = new HashMap<String,Object>();
+			
+			for(Map<String,Object> data_map:data_list)
+			{
+				data.put(data_map.get("reason").toString(), data_map.get("gold"));
+			}
+			result.add(data);
+		}
+		if(result.size() == 0){
+			return new HashMap<String,Object>();
+		}
+		return result.get(0);
+	}
+	
+	/**
+	 * 获取ltv
+	 * @param date_list
+	 * @return
+	 * @throws APIException 
+	 */
+	public double ltv(List<HashMap<String, Object>> date_list) throws APIException {
+		
+		return logDao.ltv(date_list) ;
+	}
+	
+	
+	public List<HashMap<String, Object>> queryTablesDate(String type) throws APIException
+	{
+		
+		List<HashMap<String, Object>> table_names = logDao.queryTables(type);
+
+		for(HashMap<String, Object> map: table_names)
+		{
+			logger.info("----------------table_name：："+map.get("table_name").toString());
+			map.put("date", map.get("table_name").toString().substring(map.get("table_name").toString().length()-10));
+			map.remove("table_name");
+		}
+		return table_names;
+	}
+
+	public List<Map<String, Object>> summaryLog(Map<String, Object> params,List<HashMap<String, Object>> date_list) throws APIException{
+		
+         List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		String start = params.get("start").toString();
+		String end = params.get("end").toString();
+		
+		if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end)){
+			
+			for (ListIterator<HashMap<String, Object>> iter = date_list.listIterator(); iter.hasNext(); ) {
+			    HashMap<String, Object> map = iter.next();
+			    
+			    String date = map.get("date").toString();
+			    
+			    if (date.compareTo(start) <0 ||date.compareTo(end) >0 ){
+			        iter.remove();
+			      }
+			}
+		}
+		
+			
+		List<HashMap<String, Object>> data_list = logDao.dailySummary(date_list);
+		
+		if(data_list != null){
+			
+			String date ="null";
+			for(HashMap<String,Object> single:data_list){
+				String date1 = single.get("date").toString();
+				//濡傛灉鏃ユ湡涓嶇浉绛� 灏卞垱寤烘柊鐨�
+				if(!date.equals(date1)){
+					Map<String,Object> data = new HashMap<String,Object>();
+					date=date1;
+					data.put("date", date1);
+					data.put(single.get("reason").toString(),single.get("dataValue"));
+					result.add(data);
+				}else{
+					for(Map<String,Object> sin:result){
+						if(sin.get("date").toString().equals(date)){
+							sin.put(single.get("reason").toString(),single.get("dataValue"));
+							continue;
+						}
+					}
+				}
+				
+			}
+			
+			
+		}
+			
+		return result;
+	}
+	public List<Map<String, Object>> summaryLog_Copy(Map<String, Object> params,List<HashMap<String, Object>> date_list) throws APIException{
+		
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		String start = params.get("start").toString();
+		String end = params.get("end").toString();
+		
+		if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end)){
+			
+			for (ListIterator<HashMap<String, Object>> iter = date_list.listIterator(); iter.hasNext(); ) {
+				HashMap<String, Object> map = iter.next();
+				
+				String date = map.get("date").toString();
+				
+				if (date.compareTo(start) <0 ||date.compareTo(end) >0 ){
+					iter.remove();
+				}
+			}
+		}
+		
+		for(HashMap<String, Object> map:date_list){
+			
+			List<HashMap<String, Object>> data_list = logDao.dailySummary_Copy(map.get("date").toString());
+			
+			if(data_list != null){
+				
+				Map<String,Object> data = new HashMap<String,Object>();
+				
+				for(Map<String,Object> data_map:data_list)
+				{
+					data.put(data_map.get("reason").toString(), data_map.get("dataValue"));
+				}
+				data.put("date", map.get("date"));
+				result.add(data);
+			}
+			
+		}
+		return result;
+	}
+	public List<Map<String, Object>> slotspindetail(Map<String, Object> params,List<HashMap<String, Object>> date_list) throws APIException{
+		
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		String start = params.get("start").toString();
+		String end = params.get("end").toString();
+		Object facebookObj = params.get("facebook");
+		Object sexObj = params.get("sex");
+		
+		Integer facebook=null, sex=null;
+		if(facebookObj != null){
+			if(StringUtils.isNotBlank(facebookObj.toString())){
+				facebook=Integer.valueOf(facebookObj.toString());
+			}
+		}
+		if(sexObj != null){
+			if(StringUtils.isNotBlank(sexObj.toString())){
+				sex=Integer.valueOf(sexObj.toString());
+			}
+		}
+		if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end)){
+			
+			for (ListIterator<HashMap<String, Object>> iter = date_list.listIterator(); iter.hasNext(); ) {
+				HashMap<String, Object> map = iter.next();
+				
+				String date = map.get("date").toString();
+				
+				if (date.compareTo(start) <0 ||date.compareTo(end) >0 ){
+					iter.remove();
+				}
+			}
+		}
+		
+		for(HashMap<String, Object> map:date_list){
+			
+			List<HashMap<String, Object>> data_list = logDao.slotspindetail(map.get("date").toString(), facebook, sex);
+			
+			if(data_list != null){
+				
+				Map<String,Object> data = new HashMap<String,Object>();
+				
+				for(Map<String,Object> data_map:data_list)
+				{
+					data.put(data_map.get("reason").toString(), data_map.get("dataValue"));
+				}
+				data.put("date", map.get("date"));
+				result.add(data);
+			}
+			
+		}
+		
+		for(int i=0;i<result.size();i++){
+			Map<String,Object> s = result.get(i);
+			Long totalNum = 0l;
+			for(int j=1;j<=120;j++){
+				Object v = s.get(""+j);
+				if(v!=null){
+					totalNum+=(Long)v;
+				}
+			}
+			s.put("total", totalNum);
+		}
+		return result;
+	}
+	public List<SpinDetailVO> slotspindetailMore(Map<String, Object> params) throws APIException{
+		
+		return logDao.slotspindetailMore(params);
+	}
+	public List<Map<String, Object>> topupdetail(Map<String, Object> params,List<HashMap<String, Object>> date_list) throws APIException{
+		
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		String start = params.get("start").toString();
+		String end = params.get("end").toString();
+		Object country = params.get("country");
+		
+		if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end)){
+			
+			for (ListIterator<HashMap<String, Object>> iter = date_list.listIterator(); iter.hasNext(); ) {
+				HashMap<String, Object> map = iter.next();
+				
+				String date = map.get("date").toString();
+				
+				if (date.compareTo(start) <0 ||date.compareTo(end) >0 ){
+					iter.remove();
+				}
+			}
+		}
+		
+		for(HashMap<String, Object> map:date_list){
+			
+			if(map.get("date").equals("2017_08_01")){
+				System.out.println(1);
+			}
+			HashMap<String, Object> data_Map = logDao.topupdetail(map.get("date").toString(),country);
+			if(data_Map != null){
+				data_Map.put("date", map.get("date"));
+				result.add(data_Map);
+			}
+			
+		}
+		int c1 = 0;
+		int c2 = 0;
+		int c3 = 0;
+		int c13 = 0;
+		int c14 = 0;
+		int c15 = 0;
+		//添加综合
+		for(Map<String,Object> map:result){
+			c1+=((int)(map.get("1")==null?0:map.get("1")));
+			c2+=((int)(map.get("2")==null?0:map.get("2")));
+			c3+=((int)(map.get("3")==null?0:map.get("3")));
+			c13+=((int)(map.get("13")==null?0:map.get("13")));
+			c14+=((int)(map.get("14")==null?0:map.get("14")));
+			c15+=((int)(map.get("15")==null?0:map.get("15")));
+		}
+		Map<String,Object> total = new HashMap<String,Object>();
+		total.put("date", "总计");
+		total.put("1", c1);
+		total.put("2", c2);
+		total.put("3", c3);
+		total.put("13", c13);
+		total.put("14", c14);
+		total.put("15", c15);
+		result.add(0,total);
+		return result;
+	}
+	public List<RechargeVO> topupdetailMore(Map<String, Object> params) throws APIException{
+		
+		return logDao.topupdetailMore(params);
+			
+	}
+	
+	public List<HashMap<String, Object>> slotwinner(String dataTime,String winner) throws APIException{
+		
+			
+		 List<HashMap<String, Object>> data_list = logDao.slotwinner(dataTime,winner);
+			
+			
+		return data_list;
+	}
+
+	public List<HashMap<String, Object>> slotMaxSpin(String time,String player) throws APIException{
+		
+		 List<HashMap<String, Object>> data_list = logDao.slotMaxSpin(time,player);
+			
+			return data_list;
+	}
+
+	public Map<String,List<HashMap<String, Object>>> online(String time)throws APIException {
+		
+		Map<String,List<HashMap<String, Object>>> reMap = logDao.online(time);
+			
+			return reMap;
+	}
+
+	public List<HashMap<String, Object>> equipment(String time,String equipment)throws APIException {
+		
+		List<HashMap<String, Object>> list =  logDao.equipment(time,equipment);
+		
+		if(list == null || list.size() == 0){
+			return null;
+		}
+		
+		//计算总和
+		BigDecimal DVU = new BigDecimal(0);
+		BigDecimal DNU = new BigDecimal(0);
+		BigDecimal Income = new BigDecimal(0);
+		for(HashMap<String, Object> map:list){
+			DVU=DVU.add((BigDecimal)(map.get("DVU")==null?new BigDecimal(0):map.get("DVU")));
+			DNU=DNU.add((BigDecimal)(map.get("DNU")==null?new BigDecimal(0):map.get("DNU")));
+			Income=Income.add((BigDecimal)(map.get("Income")==null?new BigDecimal(0):map.get("Income")));
+		}
+		
+		//计算 设备占有率
+		for(HashMap<String, Object> map:list){
+			if(DVU.intValue() != 0){
+				map.put("DVURate", 
+						((BigDecimal)(map.get("DVU")==null?new BigDecimal(0):map.get("DVU"))).divide(DVU, 3, RoundingMode.HALF_UP));
+			}else{
+				map.put("DVURate", new BigDecimal(0));
+			}
+		}
+		//计算 收入占比
+		for(HashMap<String, Object> map:list){
+			if(Income.intValue() != 0){
+				map.put("IncomeRate", 
+						((BigDecimal)(map.get("Income")==null?new BigDecimal(0):map.get("Income"))).divide(Income, 3, RoundingMode.HALF_UP));
+			}else{
+				map.put("IncomeRate", new BigDecimal(0));
+			}
+		}
+		HashMap<String,Object> total = new HashMap<String,Object>();
+		total.put("device_mode", "0_TOTAL");
+		total.put("DVU", DVU);
+		total.put("DNU", DNU);
+		total.put("Income", Income);
+		list.add(0,total);
+		
+		return list;
+	}
+
+	public List<HashMap<String, Object>> versionClient(String time)throws APIException {
+		return logDao.versionClient(time);
+	}
+
+	public List<HashMap<String, Object>> channel(String time,String country)throws APIException {
+		
+		List<HashMap<String, Object>> list = logDao.channel(time,country);
+		if(list == null || list.size() == 0){
+			return null;
+		}
+		
+		//计算总和
+		BigDecimal DVU = new BigDecimal(0);
+		BigDecimal DNU = new BigDecimal(0);
+		BigDecimal Income = new BigDecimal(0);
+		BigDecimal DPU = new BigDecimal(0);
+		for(HashMap<String, Object> map:list){
+			DVU=DVU.add((BigDecimal)(map.get("DVU")==null?new BigDecimal(0):map.get("DVU")));
+			DNU=DNU.add((BigDecimal)(map.get("DNU")==null?new BigDecimal(0):map.get("DNU")));
+			Income=Income.add((BigDecimal)(map.get("Income")==null?new BigDecimal(0):map.get("Income")));
+			DPU=DPU.add((BigDecimal)(map.get("DPU")==null?new BigDecimal(0):map.get("DPU")));
+		}
+		HashMap<String,Object> total = new HashMap<String,Object>();
+		total.put("countries", "Z_TOTAL");
+		total.put("DVU", DVU);
+		total.put("DNU", DNU);
+		total.put("Income", Income);
+		total.put("DPU", DPU);
+		list.add(0,total);
+		//计算 付费率（当天新增的付费的人/新增的人） 针对某个国家
+		for(HashMap<String, Object> map:list){
+			if(Income.intValue() != 0){
+				map.put("IncomeRate", 
+						((BigDecimal)(map.get("Income")==null?new BigDecimal(0):map.get("Income"))).divide(Income, 3, RoundingMode.HALF_UP));
+			}else{
+				map.put("IncomeRate", new BigDecimal(0));
+			}
+		}
+		return list;
+		
+	}
+
+	public List<HashMap<String, Object>> orderDetails(String time,String player) throws APIException {
+		return logDao.orderDetails(time,player);
+	}
+	public List<HashMap<String, Object>> retained(Map<String, Object> params,List<HashMap<String, Object>> date_list) throws APIException, ParseException {
+		  List<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+			
+			String start = params.get("start").toString();
+			String end = params.get("end").toString();
+			Object country = params.get("country");
+			Object device = params.get("device");
+			
+			if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end)){
+				
+				for (ListIterator<HashMap<String, Object>> iter = date_list.listIterator(); iter.hasNext(); ) {
+				    HashMap<String, Object> map = iter.next();
+				    
+				    String date = map.get("date").toString();
+				    
+				    if (date.compareTo(start) <0 ||date.compareTo(end) >0 ){
+				        iter.remove();
+				      }
+				}
+			}
+			
+			for(HashMap<String, Object> map:date_list){
+				
+				List<HashMap<String, Object>> data_list = logDao.retained(map.get("date").toString(),country,device,date_list);
+				
+				if(data_list != null){
+					HashMap<String,Object> data = new HashMap<String,Object>();
+					
+					for(Map<String,Object> data_map:data_list)
+					{
+						data.put(data_map.get("reason").toString(), data_map.get("valuedata"));
+					}
+					data.put("date", map.get("date"));
+					result.add(data);
+				}
+				
+			}
+		return result;
+	}
+
+	public List<HashMap<String, Object>> ichartOnline(String date) {
+		return logDao.ichartOnline(date);
+	}
+
+	public List<NewPeopleVO>  queryPerCountryPeople(List<HashMap<String, Object>> date_list) {
+		return logDao.queryPerCountryPeople(date_list);
+	}
+
+	public List<Country> getAllCountry() {
+		return logDao.getAllCountry();
+	}
+
+	public List<HashMap<String, Object>> chooseDates(Map<String, Object> params, List<HashMap<String, Object>> date_list) {
+		String start = params.get("start").toString();
+		String end = params.get("end").toString();
+		
+		if(!StringTool.isEmpty(start) && !StringTool.isEmpty(end)){
+			
+			for (ListIterator<HashMap<String, Object>> iter = date_list.listIterator(); iter.hasNext(); ) {
+			    HashMap<String, Object> map = iter.next();
+			    
+			    String date = map.get("date").toString();
+			    
+			    if (date.compareTo(start) <0 ||date.compareTo(end) >0 ){
+			        iter.remove();
+			      }
+			}
+		}
+		return date_list;
+		
+	}
+
+	public Map<String,String> oneLoginRate(List<HashMap<String, Object>> date_list,String date) {
+		return logDao.oneLoginRate(date,date_list);
+	}
+	
+	public Map<String,String> twoLoginRate(List<HashMap<String, Object>> date_list,String date) {
+		return logDao.twoLoginRate(date,date_list);
+		
+	}
+
+	public List<SlotAgeVO> queryslotAge(String type) {
+		return logDao.queryslotAge(type);
+	}
+
+	public List<SlotSexVO> queryslotSex(String sType) {
+		return logDao.queryslotSex(sType);
+	}
+
+	public List<SlotPayVO> queryslotPay(String chartId) {
+		return logDao.queryslotPay(chartId);
+	}
+
+}

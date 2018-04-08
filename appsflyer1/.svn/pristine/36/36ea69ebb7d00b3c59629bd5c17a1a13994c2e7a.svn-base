@@ -1,0 +1,57 @@
+package com.ami.bazoo.pojo;
+
+import java.util.List;
+
+public class BazooRoomVO {
+		private int state;
+		private boolean fullOrNot;
+		private RoomNumber roomNumber;
+		private List<PlayerVO> playerVOS;
+		private int maxNum;
+
+		
+		public int getState() {
+			return state;
+		}
+
+		public void setState(int state) {
+			this.state = state;
+		}
+
+		public boolean isFullOrNot() {
+			return fullOrNot;
+		}
+
+		public void setFullOrNot(boolean fullOrNot) {
+			this.fullOrNot = fullOrNot;
+		}
+
+		public RoomNumber getRoomNumber() {
+			return roomNumber;
+		}
+
+		public void setRoomNumber(RoomNumber roomNumber) {
+			this.roomNumber = roomNumber;
+		}
+
+		
+
+		public List<PlayerVO> getPlayerVOS() {
+			return playerVOS;
+		}
+
+		public void setPlayerVOS(List<PlayerVO> playerVOS) {
+			this.playerVOS = playerVOS;
+		}
+
+		public int getMaxNum() {
+			return maxNum;
+		}
+
+		public void setMaxNum(int maxNum) {
+			this.maxNum = maxNum;
+		}
+		
+		
+		
+}

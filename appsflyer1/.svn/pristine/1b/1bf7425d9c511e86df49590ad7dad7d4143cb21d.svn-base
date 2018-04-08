@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="bazoo" extends="base-default" >
+		<action name="bazoo"  class="bazooAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name="index">/bazoo/index.jsp</result>
+			<result name="indexList">/bazoo/indexList.jsp</result>
+			<result name="goldLog">/bazoo/index.jsp</result>
+			<result name="redirectIndex" type="redirect">bazoo.do?method=queryList</result>
+			<result name="redirectIndexList" type="redirect">bazoo.do?method=queryIndexList</result>
+		</action>
+	</package>
+	<package name="bazooGold" extends="base-default" >
+		<action name="bazooGold"  class="bazooGoldAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name="goldLog">/bazoo/goldLog.jsp</result>
+			<result name="pumpWaterGoldLog">/bazoo/pumpWaterGoldLog.jsp</result>
+		</action>
+	</package>
+	<package name="bazooPersonal" extends="base-default" >
+		<action name="bazooPersonal"  class="bazooPersonalAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name="list">/bazoo/personal.jsp</result>
+		</action>
+	</package>
+	
+	
+</struts>

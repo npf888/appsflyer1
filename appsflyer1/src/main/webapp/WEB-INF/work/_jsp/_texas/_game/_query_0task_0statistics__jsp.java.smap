@@ -1,0 +1,19 @@
+SMAP
+_query_0task_0statistics__jsp.java
+JSP
+*S JSP
+*F
++ 1 query_task_statistics.jsp
+texas/game/query_task_statistics.jsp
+*L
+1#1:29
+13#1:30,2
+37#1:32,11
+39#1,2:43,2
+40#1,2:46
+41#1,2:48
+42#1:50
+45#1:51,4
+49#1:55,2
+69#1:57
+*E

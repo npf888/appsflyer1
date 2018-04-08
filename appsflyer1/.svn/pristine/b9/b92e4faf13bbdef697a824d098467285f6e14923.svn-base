@@ -1,0 +1,20 @@
+package com.ami.bazoo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ami.api.common.Pager;
+import com.ami.bazoo.dao.BazooPersonalDao;
+import com.ami.bazoo.pojo.BazooParam;
+
+@Service
+public class BazooPersonalService {
+
+	@Autowired
+	private BazooPersonalDao bazooPersonalDao;
+	
+	public Pager bazooPersonal(Pager pager, BazooParam param) {
+		return bazooPersonalDao.bazooPersonal(pager,param);
+	}
+
+}

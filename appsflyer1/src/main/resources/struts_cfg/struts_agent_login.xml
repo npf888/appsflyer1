@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="agentLogin" extends="base-default" namespace="/">
+
+		<action name="agentLogin" class="agentLoginAction">
+			<interceptor-ref name="baseAgentInterceptorStack"></interceptor-ref>
+			<result name="login">/agent/login.jsp</result>
+			<result name="index">/agent/index.jsp</result>
+			<result name="loginOut">/agent/login.jsp</result>
+			
+		</action>
+
+	</package>
+	
+	
+	<package name="bazooPlayer" extends="base-default" namespace="/">
+		<action name="bazooPlayer" class="bazooPlayerAction">
+			<interceptor-ref name="baseAgentInterceptorStack"></interceptor-ref>
+			<result name="list">/agent/content/playerList.jsp</result>
+		</action>
+	</package>
+	<package name="goldChange" extends="base-default" namespace="/">
+		<action name="goldChange" class="goldChangeAction">
+			<interceptor-ref name="baseAgentInterceptorStack"></interceptor-ref>
+			<result name="list">/agent/content/goldChangeList.jsp</result>
+		</action>
+	</package>
+	
+	<package name="agent" extends="base-default" namespace="/">
+		<action name="agent" class="agentAction">
+			<interceptor-ref name="baseAgentInterceptorStack"></interceptor-ref>
+			<result name="self">/agent/content/agentSelfList.jsp</result>
+			<result name="selfEdit">/agent/content/agentSelfEdit.jsp</result>
+			<result name="list">/agent/content/agentList.jsp</result>
+			<result name="sunAdd">/agent/content/sunAgentAdd.jsp</result>
+			<result name="addGold">/agent/content/addGold.jsp</result>
+			<result name="redPackage">/agent/content/addRedPackage.jsp</result>
+			<result name="redirectIndex" type="redirect">agent.do?method=list</result>
+			<result name="redirectSelfIndex" type="redirect">agent.do?method=self</result>
+		</action>
+	</package>
+	<package name="agentAll" extends="base-default" namespace="/">
+		<action name="agentAll" class="agentAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="all">/agent/content/allAgentList.jsp</result>
+		</action>
+	</package>
+</struts>

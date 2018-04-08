@@ -1,0 +1,82 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<style>
+.bor{border:1px dashed #F00;width:600px;height:120px;margin-top:10px} 
+</style>
+<div id="ami_main">
+<div class="row-fluid">	
+</div>	
+<hr/>
+
+<div class="row-fluid">
+	
+		<div class="ami_table_header"><span class="ami_table_header_title">实时在线人数-[ 总在线人数：${totalNum} ]-[ 总的累计时间：${totalMinute} ]-[ 平均时间：${avgMinute} ]</span>
+			<span class="ami_table_header_btn">		
+			</span>
+		</div>
+		<table id="table_report" class="table table-striped table-bordered table-hover">
+			<thead>			
+				<tr>
+					<th>index</th>
+					<th>用户名</th>
+					<th>用户ID</th>
+					<th>性别</th>
+					<th>设备</th>
+					<th>渠道</th>
+					<th>当前金币数量</th>
+					<th>累计在线时长</th>
+					
+				</tr>				
+			</thead>
+			<tbody>				
+					
+				<c:forEach var="item" items="${onlinePeople }">
+					<tr id="tr_${activity.id }">
+							<td>${item.index }</td>
+							<td>${item.name }</td>
+							<td>${item.passportId }</td>
+							<td>${item.girlFlag }</td>
+							<td>${item.device }</td>
+							<td>${item.channelType }</td>
+							<td>${item.gold }</td>
+							<td>${item.totalMinute }</td>
+					</tr>
+				</c:forEach>
+
+				
+					
+			</tbody>
+		</table>		
+		<jsp:include page="/common/page.jsp"></jsp:include>
+		
+	</div>	
+</div>
+<div id="ami_newwindow" style="display: none;">
+
+</div>
+
+<script type="text/javascript">
+
+function openframe(url,title)
+{
+	$('#PAGECONTENT').show();
+	$('#div_frame').hide();
+	$.ajax({
+		  url: url,
+		  success: function(data)
+			  		{
+						$('.ami_Mask').hide();	
+						$('#PAGECONTENT').html(data)
+					},
+		  error:function(data){
+			  $('.ami_Mask').hide();	
+			 $('#PAGECONTENT').html(data.responseText)
+			  
+		  
+		  	},
+		  dataType: 'html'
+		});
+}
+</script>

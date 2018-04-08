@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<!-- 收集系统，俱乐部，世界boss， 老虎机竞赛 -->
+	<package name="collect" extends="base-default" namespace="/">
+		<action name="collect"  class="collectAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name="query">/texas/gamenew/collect.jsp</result>
+		</action>
+	</package>
+	<package name="club" extends="base-default" namespace="/">
+		<action name="club"  class="clubAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name="query">/texas/gamenew/club.jsp</result>
+		</action>
+	</package>
+	<package name="tourment" extends="base-default" namespace="/">
+		<action name="tourment"  class="tourmentAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name="query">/texas/gamenew/tourment.jsp</result>
+		</action>
+	</package>
+	<package name="worldBoss" extends="base-default" namespace="/">
+		<action name="worldBoss"  class="worldBossAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name="query">/texas/gamenew/worldboss.jsp</result>
+		</action>
+	</package>
+</struts>

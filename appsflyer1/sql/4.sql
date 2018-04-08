@@ -1,0 +1,1 @@
+ alter table feedback.feedback ADD  column channel character varying(64);

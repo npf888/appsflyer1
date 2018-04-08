@@ -1,0 +1,44 @@
+package com.ami.texas.gamenew.dao;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+import com.ami.api.common.Pager;
+import com.ami.api.web.dao.BaseMysqlDao;
+import com.ami.texas.gamenew.pojo.CollectVO;
+@Component
+public class GamenewDao extends BaseMysqlDao{
+	private static Logger logger = Logger.getLogger(GamenewDao.class);
+	public Pager queryCollect(Pager pager, String account, String username) {
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append(" select t1.id,"
+				+ "	t1.humanId,"
+				+ " t1.carIds,"
+				+ " t1.debris,"
+				+ " t1.slotspin,"
+				+ " t1.slotpoint,"
+				+ " t2.name,"
+				+ " t2.level,"
+				+ " if(t1.updateTime=0, '-' , FROM_UNIXTIME(t1.updateTime/1000,'%Y-%m-%d %H:%i:%s')) updateTime,"
+				+ " if(t1.createTime=0, '-' , FROM_UNIXTIME(t1.createTime/1000,'%Y-%m-%d %H:%i:%s')) createTime"
+				+ " from texas.t_human_collect t1 "
+				+ " left join texas.t_human_info t2 "
+				+ " on t1.humanId=t2.passportId "
+				+ "  ");
+    
+	   /* if (!StringTool.isEmpty(userid))
+	    {
+	        sql.append(" and charid like '%");
+	        sql.append(userid);
+	        sql.append("%'");
+	    }*/
+	
+		try{
+			pager = this.db.queryPage(sql.toString(), new Object[]{}, pager,CollectVO.class);
+		}catch(Exception e){
+			logger.error("收集系统错误报告：：", e);
+		}
+	    return pager; 
+	}
+
+}

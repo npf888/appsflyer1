@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="weixin" extends="base-default" >
+		<action name="weixin"  class="coreAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref> 
+			<result name=""></result>
+		</action>
+	</package>
+	<package name="invoke" extends="base-default" namespace="/">
+		<action name="invoke"  class="remoteWatchingAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name=""></result>
+		</action>
+	</package> 
+	<package name="simplet1" extends="base-default" namespace="/">
+		<action name="simplet1"  class="simple1Action">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name=""></result>
+		</action>
+	</package> 
+	<package name="simplet" extends="base-default" namespace="/">
+		<action name="simplet"  class="simple2Action">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="serverDetail">/weixin/info/server_info.jsp</result>
+			<result name="serverMaxDetail">/weixin/info/server_max_info.jsp</result>
+			<result name="newNumList">/weixin/info/ichart_server_info.jsp</result>
+		</action>
+	</package> 
+	<package name="simplet3" extends="base-default" namespace="/">
+		<action name="simplet3"  class="simple3Action">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="googlemap">/googlemap/googlemap.jsp</result>
+		</action>
+	</package> 
+
+	<!-- 统计不属于微信 -->
+	<package name="statistics" extends="base-default" namespace="/">
+		<action name="statistics"  class="statisticsAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="levelNum">/statistics/level_num.jsp</result>
+			<result name="levelNumIchart">/statistics/level_num_ichart.jsp</result>
+			<result name="totalTimeNum">/statistics/total_time_num.jsp</result>
+			<result name="totalTimeNumIchart">/statistics/total_time_num_ichart.jsp</result>
+			<result name="humanSpendTimeOnSlot">/statistics/human_spend_time_on_slot.jsp</result>
+			<result name="order">/statistics/order.jsp</result>
+		</action>
+	</package> 
+	<!-- 添加金币之类 -->
+	<package name="addgold" extends="base-default" namespace="/">
+		<action name="addgold"  class="addgoldAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="addgold">/addgold/addgold.jsp</result>
+		</action>
+	</package> 
+	
+	
+</struts>

@@ -1,0 +1,140 @@
+.nav-list>li .submenu>li{cursor: pointer;}
+*{font-size: 12px}
+hr{margin: 10px 0;}
+.login-layout .widget-box{background-color: #a1d6fe}
+.navbar .navbar-inner{background: #008ceb;}
+.ace-nav>li.light-blue{background: #47bdeb;}
+.user-info {line-height: 30px;}
+
+.notifications .date1{color: #F1Af00;font-size: 16px;font-weight: bold;}
+.notifications .date2{color: #Df0029;font-size: 16px;font-weight: bold;}
+.notifications .date3{color: red}
+.notifications .date4{color: red}
+
+.ami_table_header{background: #307ecc;border-color: #307ecc; height:40px; }
+.ami_table_header .ami_table_header_title{font-weight: bold;line-height: 40px; color: #fff;font-size: 16px;display: block; margin:0 0 0 20px;float: left;}
+
+.ami_table_header_btn{float: right; margin: 6px}
+.ami_table_header_btn button{}
+
+.ami_table_header_btn span{color: #8fefff;display: block;margin: 4px 40px 0 20px;float: left;}
+
+.amitable .red{color:red}
+
+.icon-star{color: red; margin-right: 2px}
+
+.ami_Mask{-moz-opacity: 0.65;opacity: 0.65;filter: alpha(opacity=65);background: #ddd; display:none}
+.ami_Maskcontent{background:url(loading_dark_large.gif);height:150px;left:50%;margin-left:-75px;margin-top:-75px;position:fixed;top:50%;width:150px}
+
+label{margin-bottom: 0px; line-height: 25px};
+
+.form-inline{margin-bottom: 0px;margin-top: 5px;}
+#searchForm{margin-bottom: 0px;margin-top: 7px;}
+#searchForm *{font-size: 12px}
+#searchForm input[type=text]{width:100px;height: 19px;padding: 3px 4px;}
+#searchForm label{margin-right: 0px;margin-left:0px;min-width:61px;text-align: right;}
+#searchForm select{width:130px;height: 28px;line-height: 28px;padding: 3px 4px;}
+
+.searchForm{margin-bottom: 0px;margin-top: 7px;}
+.searchForm *{font-size: 12px}
+.searchForm input[type=text]{width:100px;height: 19px;padding: 3px 4px;}
+.searchForm label{margin-right: 0px;margin-left:0px;min-width:61px;text-align: right;}
+.searchForm select{width:130px;height: 28px;line-height: 28px;padding: 3px 4px;}
+
+.table td{padding: 6px;}
+.ami_table_group tbody td{margin: 0 ;padding: 0px;}
+.ami_table_group .child{border: 1px solid #c6D0Dc; margin: 3px;}
+.ami_table_group .parent td{border: 0;}
+.ami_table_group .parent {border: 1px solid #c6D0Dc; background: #f1f8fe }
+.ami_table_group .child td{border:0}
+
+ 
+ 
+.tree-selectable input[type=checkbox], input[type=radio]{margin:1px;opacity: 1;position:relative; }
+ 
+
+ .table_group { text-align:center; border:1px solid #c6d0dc; color: #647899}
+.table_group .head{background: #f3f3f3; height:36px; line-height:36px; font-weight:200; color:#707070;}
+.table_group .one{ margin:3px; border:1px solid #c6d0dc}
+.table_group .title{background: #f1f8fe;background-color: #f1f8fe; height:36px; line-height:36px; cursor: pointer;}
+.table_group .child{border-top:1px solid #c6d0dc; line-height:30px;}
+.table_group .child {color:#928A8A;}
+
+/** 保证人信息 */
+.ensureP{display: none}
+
+.bailform input[type="text"]{width:209px}
+.form-horizontal input[type="text"],input[type="password"]{width:250px}
+
+
+.control-group input[type="radio"]{margin-left: 15px;margin-right: 2px}
+.bailform .detail{line-height: 30px;padding-top: 1px;display: block}
+
+/***解除按钮***/
+
+.btn-release:hover {background-color: #00FF00!important;}
+.btn-release,.btn-default{background-color:#00FF00}
+.btn-release{color:#fff;border-color: #abbac3;}
+
+/*************提醒*****************/
+
+.noread{cursor: pointer; font-weight: bold;}
+
+
+/********** 人员基本信息****************/
+#table_info_base tr{height: 32px}
+#table_info_base input[type="text"]{ width: 150px;height: 14px}
+#table_info_base select{width: 164px;height: 28px}
+#table_info_base .table_label{width:108px; text-align: right;}
+#table_info_base .table_input{width:170px; text-align: left;padding-left: 4px}
+#table_info_base .table_info{width:120px}
+#table_info_base .table_info .error{color:red}
+
+
+.table_info_data tr{height: 32px}
+.table_info_data input[type="text"]{ width: 150px;height: 14px;margin-bottom: 0px}
+.table_info_data select{width: 164px;height: 28px}
+.table_info_data .table_label{width:108px; text-align: right;}
+.table_info_data .table_input{width:170px; text-align: left;padding-left: 4px;color:#808A87}
+.table_info_data .table_info{width:120px}
+.table_info_data .table_info .error{color:red}
+
+.baseinfo_tab_data td{cursor: pointer;}
+
+
+
+/**** 详细信息*************/
+
+.detail1{margin-left: 181px;padding-left: 10px;height: 30px;line-height: 30px;font-size: 14px;color:#808A87}
+
+
+/*****信访人批量添加 **********/
+.trend_people{}
+
+.trend_people .search_input{line-height: 30px;height: 30px;}
+.trend_people .search_input span{margin-right: 10px}
+.trend_people .search_input input{height: 11px;display: inline;width: 171px;}
+
+
+/****信访资料***/
+.letter_affix input[type="text"]{width:120px}
+.letter_affix .one{text-align: center;}
+
+
+
+
+/****登陆界面a***/
+.mmmain{margin-top:18px;}
+.bbn{float:left;width:auto;}
+.bbn img{width:113px;}
+.aan{float:right;width:auto;}
+.aan-ri h4{display:block;font-size:14px;font-weight:normal;margin:17px 0 0 0;}
+.aan-ri h4 span{display:block;float:left;font-size:14px;}
+.aancl{width:80px;height:30px; line-height:30px;text-align:right;}
+.aancr{width:200px;}
+.aan-ri h4 span.aancr input{width:186px;height:30px; line-height:30px;padding:0 0 0 5px;margin:0; background:#f1f0e0;border:1px solid #2454b7;}
+.clear{clear:both;}
+
+.ddgb_table td{ vertical-align: middle;text-align: center;}
+.ddgb_table .left{text-align: left}
+

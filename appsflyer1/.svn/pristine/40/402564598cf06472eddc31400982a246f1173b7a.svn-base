@@ -1,0 +1,38 @@
+/*
+ * SimpleModal OSX Style Modal Dialog
+ * http://www.ericmmartin.com/projects/simplemodal/
+ * http://code.google.com/p/simplemodal/
+ *
+ * Copyright (c) 2010 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Revision: $Id: osx.css 254 2010-07-23 05:14:44Z emartin24 $
+ */
+html,body {height: 100%;margin: 0px;padding: 0px}
+#map_canvas {height: 100%;}
+.main td {height: 24px;font-size: 12px;line-height: 24px;font-size: 12px;color: #333333;white-space: nowrap;margin: 12px 0 0;}
+.main img {margin-bottom: -3px;}
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+.demo{width:720px;margin:30px auto;}
+.demo h2{font-size:16px;color:#3366cc;height:30px;}
+.demo li{float:left;}
+.text{width:180px;font:16px arial;border:1px solid #cdcdcd;border-color:#9a9a9a #cdcdcd #cdcdcd #9a9a9a;vertical-align:top;outline:none;margin:0 5px 0 0;}
+#osx-modal-content, #osx-modal-data {display:none;}
+
+/* Overlay */
+#osx-overlay {background-color:#000; cursor:wait;}
+
+/* Container */
+#osx-container {background-color:#eee; color:#000; font: 16px/24px ;  width:600px; -moz-border-radius-bottomleft:6px; -webkit-border-bottom-left-radius:6px; -moz-border-radius-bottomright:6px; -webkit-border-bottom-right-radius:6px; border-radius:0 0 6px 6px; -moz-box-shadow:0 0 64px #000; -webkit-box-shadow:0 0 64px #000; box-shadow:0 0 64px #000;}
+/*#osx-container a {color:#ddd;}*/
+#osx-container #osx-modal-title {color:#000; background-color:#ddd; border-bottom:1px solid #ccc; font-weight:bold; padding:6px 8px; text-shadow:0 1px 0 #f4f4f4;}
+#osx-container .close {display:none; position:absolute; right:0; top:0;}
+#osx-container .close a {display:block; color:#777; font-weight:bold; padding:6px 12px 0; text-decoration:none; text-shadow:0 1px 0 #f4f4f4;}
+#osx-container .close a:hover {color:#000;}
+#osx-container #osx-modal-data {font-size:12px; padding:0px 12px; height:320px; overflow: auto;}
+#osx-container h2 {margin:10px 0 6px;}
+#osx-container p {margin-bottom:10px;}
+#osx-container span {color:#777;}

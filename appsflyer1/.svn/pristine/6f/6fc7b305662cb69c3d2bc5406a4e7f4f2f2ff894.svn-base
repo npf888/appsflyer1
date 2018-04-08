@@ -1,0 +1,409 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+
+<form class="form-horizontal" action="code.do?method=editCode" method="post" id="form">
+	  
+	  <div class="control-group">
+		<label class="control-label" for="form-field-accout">标题</label>
+		<div class="controls">
+		  <input type="text" name="title"  class="validation" requiry="true" value="${one.conversionCode}" />
+		</div>
+	  </div>
+	  <div class="control-group">
+		<label class="control-label" for="form-field-accout">内容</label>
+		<div class="controls">
+		  <input type="text" name="content"    class="validation" requiry="true"value="${one.gold}" />
+		</div>
+	  </div>
+	  <div class="control-group">
+		<label class="control-label" for="form-field-accout">priority</label>
+		<div class="controls">
+		  <input type="text" name="priority"    class="validation" requiry="true"value="${one.gold}" />
+		</div>
+	  </div>
+	  <div class="control-group" id="noticeElement">
+	  
+		<label class="control-label" for="form-field-accout">notificationType</label>
+		<div class="controls">
+			邮件
+		  <input type="text" name="notificationType"    class="validation" requiry="true" value="1" />
+			公告
+		  <input type="text" name="notificationType"    class="validation" requiry="true" value="2" />
+		</div>
+		
+	  </div>
+	  
+	  
+	  <div class="control-group" id="typeValueElement">
+	  
+		<label class="control-label" for="form-field-accout"><!-- 添加条件 --></label>
+		<div class="typeValue">
+		  	所有人:
+		       <input type="hidden" name="type"    value="0" />
+		       <input type="text" name="value"     value="${one.gold}" />
+		  
+		<br/>
+		
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+		  	在线奖励可领取:
+		       <input type="hidden" name="type"    value="1" />
+		       <input type="text" name="value"     value="${one.gold}" />
+		
+		<br/>
+		
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+		  	玩家未签到:
+		       <input type="hidden" name="type"    value="2"  />
+		       <input type="text" name="value"     value="${one.gold}" />
+<br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+		 
+		 	收到新的好友申请:
+		       <input type="hidden" name="type"    value="3"   />
+		       <input type="text" name="value"     value="${one.gold}" />
+		<br/>
+
+		 <%--  type：
+		  	登录天数:
+		       <input type="hidden" name="type"    value="4" />
+		  value：
+		       <input type="text" name="value"     value="${one.gold}" />
+		<br/> --%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+
+		  	未登录天数:
+		       <input type="hidden" name="type"    value="5"  />
+		       <input type="text" name="value"     value="${one.gold}" />
+		
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+		  	充值次数:
+		       <input type="hidden" name="type"    value="6"  />
+		       <input type="text" name="value"     value="${one.gold}" />
+	<br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+		  	点开计费点未充值的次数：
+		       <input type="hidden" name="type"    value="7"  />
+		       <input type="text" name="value"     value="${one.gold}" />
+	<br/>
+
+		 <%--  type：
+		  	点开未充值次数:
+		       <input type="text" name="type"    value="8" readonly="readonly" />
+		       <input type="text" name="value"     value="${one.gold}" />
+	<br/> --%>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+		  	金币存储量百分比达到：
+		       <input type="hidden"  name="type"    value="9" readonly="readonly" />
+		       <input type="text" name="value"     value="${one.gold}" />
+		
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+
+		  	所在工会有人购买了俱乐部礼包：
+		       <input type="hidden"  name="type"    value="10" readonly="readonly" />
+		       <input type="text" name="value"     value="${one.gold}" />
+
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+		  	有可领奖邮件：
+		       <input type="hidden"  name="type"    value="11" readonly="readonly" />
+		       <input type="text" name="value"     value="${one.gold}" />
+	
+
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+		  等级:
+		       <input type="hidden"  name="type"    value="12" readonly="readonly" />
+		       <input type="text" name="value"     value="${one.gold}" />
+		
+<br/>
+
+
+		</div>
+		
+	  </div>
+	  
+	 
+	  <div class="form-actions">
+			<button class="btn btn-small btn-info" type="button" id="submit" ><i class="icon-ok"></i>提交</button>	
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn btn-small" type="reset"><i class="icon-undo"></i> Reset</button>
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn btn-small" type="reset" onclick="goback()"><i class="icon-undo"></i>取消</button>
+	  </div>
+ </form>
+ 
+ 
+ 
+<script>
+	$(document).ready(function () {
+	    //定义表单提交前与提交后的处理方法及超时相关
+	    var options = {
+	                beforeSubmit:showRequest,
+	                success:showResponse,
+	                timeout:3000
+	            };
+	    $("#submit").click(function(){
+	    	
+	    	$('#submit').attr("disabled",true);
+	    	
+	    	var jsonStr = "{";
+	    	var title = $("input[name='title']");
+	    	jsonStr+="\"title\":\""+title[0].value+"\",";
+	    	
+	    	var content = $("input[name='content']");
+	    	jsonStr+="\"content\":\""+content[0].value+"\",";
+	    	
+	    	var priority = $("input[name='priority']");
+	    	jsonStr+="\"priority\":\""+priority[0].value+"\",";
+	    	
+	    	var notificationTypeArr = $("input[name='notificationType']");
+	    	if(notificationTypeArr.length > 0){
+	    		jsonStr+="\"notificationType\":["
+		    	for(var i=0;i<notificationTypeArr.length;i++){
+		    		var noti = notificationTypeArr[i].value;
+		    		jsonStr+="\""+noti+"\","
+		    	}
+	    		jsonStr=jsonStr.substring(0,jsonStr.length-1);
+	    		jsonStr+="]"
+	    	}
+	    	
+	    	jsonStr+=",\"conditions\":["
+	    	$(".typeValue").each(function(){
+	    		var type0 = $(this).find("input[name='type']")[0].value;
+	    		var value0 = $(this).find("input[name='value']")[0].value;
+	    		
+	    		
+	    		var type1 = $(this).find("input[name='type']")[1].value;
+	    		var value1 = $(this).find("input[name='value']")[1].value;
+	    		
+	    		var type2 = $(this).find("input[name='type']")[2].value;
+	    		var value2 = $(this).find("input[name='value']")[2].value;
+	    		
+	    		var type3 = $(this).find("input[name='type']")[3].value;
+	    		var value3 = $(this).find("input[name='value']")[3].value;
+	    		
+	    		var type4 = $(this).find("input[name='type']")[4].value;
+	    		var value4 = $(this).find("input[name='value']")[4].value;
+	    		
+	    		var type5 = $(this).find("input[name='type']")[5].value;
+	    		var value5 = $(this).find("input[name='value']")[5].value;
+	    		
+	    		var type6 = $(this).find("input[name='type']")[6].value;
+	    		var value6 = $(this).find("input[name='value']")[6].value;
+	    		
+	    		var type7 = $(this).find("input[name='type']")[7].value;
+	    		var value7 = $(this).find("input[name='value']")[7].value;
+	    		
+	    		var type8 = $(this).find("input[name='type']")[8].value;
+	    		var value8 = $(this).find("input[name='value']")[8].value;
+	    		
+	    		var type9 = $(this).find("input[name='type']")[9].value;
+	    		var value9 = $(this).find("input[name='value']")[9].value;
+	    		
+	    		var type10 = $(this).find("input[name='type']")[10].value;
+	    		var value10 = $(this).find("input[name='value']")[10].value;
+	    		
+	    		
+	    		
+	    		
+	    		jsonStr+="{\"type\":\""+type0+"\",\"value\":\""+value0+"\"},"
+	    		jsonStr+="{\"type\":\""+type1+"\",\"value\":\""+value1+"\"},"
+	    		jsonStr+="{\"type\":\""+type2+"\",\"value\":\""+value2+"\"},"
+	    		jsonStr+="{\"type\":\""+type3+"\",\"value\":\""+value3+"\"},"
+	    		jsonStr+="{\"type\":\""+type4+"\",\"value\":\""+value4+"\"},"
+	    		jsonStr+="{\"type\":\""+type5+"\",\"value\":\""+value5+"\"},"
+	    		jsonStr+="{\"type\":\""+type6+"\",\"value\":\""+value6+"\"},"
+	    		jsonStr+="{\"type\":\""+type7+"\",\"value\":\""+value7+"\"},"
+	    		jsonStr+="{\"type\":\""+type8+"\",\"value\":\""+value8+"\"},"
+	    		jsonStr+="{\"type\":\""+type9+"\",\"value\":\""+value9+"\"},"
+	    		jsonStr+="{\"type\":\""+type10+"\",\"value\":\""+value10+"\"},"
+	    		
+	    	});
+	    	jsonStr=jsonStr.substring(0,jsonStr.length-1);
+	    	jsonStr+="]"
+	    	jsonStr+="}"
+	    	alert(jsonStr);
+	    	var url = "news.do?method=sendMessageData";
+    		 $.ajax({
+   			  url: url,
+   			  data:{jsonStr:jsonStr},
+   			  success: function(data)
+   				  		{
+   							alert(data);
+   						},
+   			  error:function(data){
+   				  $('.ami_Mask').hide();	
+   				checkSubmitFlg=false;
+   				$('#submit').attr("disabled","disabled"); 
+   				 $('#PAGECONTENT').html(data.responseText)
+   				  
+   			  
+   			  	},
+   			  dataType: 'html'
+    		});
+	    });
+	});
+	
+
+	
+	function addNotification(){
+		$("#noticeElement").append("<br/> notificationType "+$(".noticeClass").html());
+	}
+	
+	function addTypeValue(){
+		$("#typeValueElement").append("<br/> 添加条件 "+$(".typeValueClass").html());
+		
+	}
+	function dis(){
+		$(".noticeClass").remove();
+		return;
+	}
+	
+	
+	
+	
+	function sleep(numberMillis) { 
+		var now = new Date(); 
+		var exitTime = now.getTime() + numberMillis; 
+		while (true) { 
+			now = new Date(); 
+			if (now.getTime() > exitTime) 
+				return; 
+		} 
+	}
+function showRequest(formData, jqForm, options) 
+{
+validation_result=true;
+	
+	$('.validation').each(function(){
+		
+		validat($(this));
+	});
+	
+	if(!validation_result)
+	{
+			
+		return false;
+	}
+	return true;
+}
+function showResponse(responseText, statusText, xhr, $form)  
+{ 
+	bootbox.alert("用户信息编辑成功",
+	function() {
+		nav('admin.do?method=query','用户管理');
+		});
+}
+
+
+
+$('.validation').blur(function(){
+	
+	validat($(this));
+	
+});
+
+
+function validat(obj)
+{
+	if(obj.attr('requiry')&&obj.val()=='')
+	{
+		obj.siblings().remove();
+		obj.parent().parent().removeClass('error');
+		obj.after("&nbsp;<i class='icon-remove-sign' ></i><span class='help-inline' >必填项！</span>");
+		obj.parent().parent().addClass('error');
+		
+		validation_result=false;
+		
+	}else
+	{
+		obj.parent().parent().removeClass('error');
+		obj.siblings().remove();
+	}
+}
+
+
+function moveOption(e1, e2)
+{
+
+	e1=$('#'+e1)[0];
+
+	e2=$('#'+e2)[0];
+
+   try
+   {
+      for(var i = 0; i < e1.options.length; i ++ )
+      {
+         if(e1.options[i].selected)
+         {
+            var e = e1.options[i];
+            e2.options.add(new Option(e.text, e.value));
+            e1.remove(i);
+            i = i - 1;
+         }
+      }
+ 	// alert(getvalue($('#list2')[0]));
+      $('#role_hid').val(getvalue($('#list2')[0]))
+   }
+   catch(e)
+   {
+   }
+}
+function getvalue(geto)
+{
+   var allvalue = "";
+   for(var i = 0; i < geto.options.length; i ++ )
+   {
+      allvalue += geto.options[i].value + "|";
+   }
+   
+   if(allvalue.length>1)
+   {
+   		 allvalue = allvalue.substr(0,allvalue.length-1);
+   }
+   
+   return allvalue;
+}
+function moveAllOption(e1, e2)
+{
+	e1=$('#'+e1)[0];
+
+	e2=$('#'+e2)[0];
+	
+   try
+   {
+      for(var i = 0; i < e1.options.length; i ++ )
+      {
+         var e = e1.options[i];
+         e2.options.add(new Option(e.text, e.value));
+         e1.remove(i);
+         i = i - 1;
+      }
+      $('#role_hid').val(getvalue($('#list2')[0]))
+   }
+   catch(e)
+   {
+
+   }
+}
+
+
+</script>
+
+
+
