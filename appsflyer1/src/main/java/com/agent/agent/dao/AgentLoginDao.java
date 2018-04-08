@@ -20,7 +20,7 @@ public class AgentLoginDao extends BaseDao{
 		try {
 			StringBuilder sqlBuilder = new StringBuilder(sql);
 			String md5Password = MD5Utils.getMD5(password);
-			sqlBuilder.append(" from sys_admin_texas.bazoo_agent where username = '"+username+"' and passwords='"+md5Password+"'");
+			sqlBuilder.append(" from texas.bazoo_agent where username = '"+username+"' and passwords='"+md5Password+"'");
 			List<BazooAgent> bazooAgents = this.db.query(sqlBuilder.toString(), BazooAgent.class);
 			if(bazooAgents != null && bazooAgents.size() >0){
 				return bazooAgents.get(0);

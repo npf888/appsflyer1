@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/agent/agent=GBK
 encoding//src/main/java/com/ami/api/init/SystemInit.java=UTF-8
 encoding//src/main/java/com/ami/api/utill/AnalysisApk.java=UTF-8
 encoding//src/main/java/com/ami/bazoo=UTF-8
