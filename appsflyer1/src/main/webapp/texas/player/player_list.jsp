@@ -53,6 +53,8 @@
 					<th>VIP等级</th>	
 					<th>钻石</th>
 					<th>筹码</th>
+					<th>银行筹码</th>
+					<th>银行密码</th>
 					<th>魅力值</th>
 					<th>当前经验</th>
 					<th>上次登录时间</th>
@@ -82,6 +84,8 @@
 	                 <td>${user.viplevel}</td>
 	                 <td>${user.diamond }</td>
 	                 <td>${user.gold}</td>
+	                 <td>${user.bankGold}</td>
+	                 <td>${user.bankPassword}</td>
 	                 <td>${user.charm}</td>
 	                 <td>${user.curexp}</td>
 	                 <td>${user.last_login_time}</td>

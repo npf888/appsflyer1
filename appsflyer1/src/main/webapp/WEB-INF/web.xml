@@ -62,7 +62,7 @@
     
     <context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>hangzhou.root</param-value>
+		<param-value>hangzhouSlot.root</param-value>
 	</context-param>
 	<!-- 初始化 -->  
      <context-param>  

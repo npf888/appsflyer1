@@ -26,6 +26,7 @@
         		<div id="dtree" class="tree tree-selectable"></div>
 		</div>
 	  </div>
+	  </div>
 	  <div class="form-actions">
 			<button class="btn btn-small btn-info" type="submit"><i class="icon-ok"></i>提交</button>	
 			&nbsp; &nbsp; &nbsp;
@@ -48,11 +49,13 @@ $(function(){
 		a.config.check=true;
 		a.add("0", "-1", '权限树');
 		<c:forEach var="nav" items="${rightList}">
-		 a.add("${nav.sid}", "${nav.pid}", "${nav.title}",'','','navDital');
-		 </c:forEach>
+			a.add("${nav.sid}", "${nav.pid}", "${nav.title}",'','','navDital');
+		</c:forEach>
+		
 		a.draw();
 		a.toggleNode = function(id) {};
-			a.selectNode = function(node) {
+		
+		a.selectNode = function(node) {
 			temp_parentid=node.id ;		
 		};
 		var groupright = $('#groupright').val();
@@ -76,14 +79,15 @@ $(function(){
 });
 
 $('.ami_checkbox').click(function(){
-
-		var chk_value =[];    
-		  $('input[name="check"]:checked').each(function(){ 
 		
+		var chk_value =[];    
+		  $('input[type="checkbox"]:checked').each(function(){ 
+		
+		  
+		   
 		   chk_value.push($(this).val());    
 		   
 		  });   
-		  
 		  
 		  $('#groupright').val(chk_value.toString());
 		  

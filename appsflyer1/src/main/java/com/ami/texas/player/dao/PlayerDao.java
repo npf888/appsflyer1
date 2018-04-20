@@ -42,7 +42,7 @@ public class PlayerDao extends BaseMysqlDao
         throws APIException
     { 
         StringBuffer sql = new StringBuffer(" ");
-        sql.append(" select t1.id, t1.passportid, t1.name, t1.level, t1.diamond, t1.gold, t1.charm, t1.curexp, t1.sceneid,t1.bazooAgentDisplay, ");
+        sql.append(" select t1.id, t1.passportid, t1.name, t1.level, t1.diamond, t1.gold, t1.charm, t1.curexp, t1.sceneid,t1.bazooAgentDisplay,t1.bankGold,t1.bankPassword, ");
         sql.append(" t2.facebookId,");
         sql.append(" if(t1.lastlogintime=0, '-' , FROM_UNIXTIME(t1.lastlogintime/1000,'%Y-%m-%d %H:%i:%s')) as last_login_time, ");
         sql.append(" if(t1.lastlogouttime=0, '-' , FROM_UNIXTIME(t1.lastlogouttime/1000,'%Y-%m-%d %H:%i:%s')) as last_logout_time, ");
@@ -340,13 +340,13 @@ public class PlayerDao extends BaseMysqlDao
      * @throws APIException
      * @see [绫汇�佺被#鏂规硶銆佺被#鎴愬憳]
      */
-    public Pager queryEmail(Pager pager, String userid, String username) 
+    public Pager queryEmail(Pager pager,String sendUserid, String sendUsername, String userid, String username,String condition) 
         throws APIException
     { 
         StringBuffer sql = new StringBuffer(" ");
-        sql.append(" SELECT id, charid, sendid, sendname, recid, recname, title, content, attachmentpack, mailstatus, ");
+        sql.append(" SELECT id, charid, sendid, sendname, recid, recname, title, content, attachmentpack, mailstatus,deleted,");
         sql.append(" if(updatetime=0, '-' , FROM_UNIXTIME(updatetime/1000,'%Y-%m-%d %H:%i:%s')) as update_time, ");
-        sql.append(" if(createtime=0, '-' , FROM_UNIXTIME(createtime/1000,'%Y-%m-%d %H:%i:%s')) as create_time FROM texas.t_mail_info where 1=1");
+        sql.append(" if(createtime=0, '-' , FROM_UNIXTIME(createtime/1000,'%Y-%m-%d %H:%i:%s')) as create_time FROM texas.t_mail_info where "+condition);
         
         
         if (!StringTool.isEmpty(userid))
@@ -357,9 +357,21 @@ public class PlayerDao extends BaseMysqlDao
         }
         if (!StringTool.isEmpty(username))
         {
-            sql.append(" and sendname like '%");
+            sql.append(" and recName like '%");
             sql.append(username);
             sql.append( "%'");
+        }
+        if (!StringTool.isEmpty(sendUserid))
+        {
+        	sql.append(" and sendId like '%");
+        	sql.append(sendUserid);
+        	sql.append("%'");
+        }
+        if (!StringTool.isEmpty(sendUsername))
+        {
+        	sql.append(" and sendName like '%");
+        	sql.append(sendUsername);
+        	sql.append( "%'");
         }
         
         sql.append(" order by create_time DESC ");

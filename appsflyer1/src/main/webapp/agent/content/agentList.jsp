@@ -33,7 +33,7 @@
 							<th class="hidden-xs">qq号码</th>
 							<th class="hidden-xs">父ID</th>
 							<th class="hidden-xs">状态</th>
-							<th class="hidden-xs">红包权限</th>
+							<!-- <th class="hidden-xs">红包权限</th> -->
 							<th class="hidden-xs">创建时间</th>
 							<th class="hidden-xs">操作</th>
 							<th class="visible-xs">操作</th>
@@ -54,7 +54,7 @@
 								<td class="hidden-xs arr">${agent.wx}</td>
 								<td class="hidden-xs arr">${agent.qq}</td>
 								<td class="hidden-xs">${agent.parentId}</td>
-								<td class="hidden-xs">${agent.state}</td>
+								<%-- <td class="hidden-xs">${agent.state}</td> --%>
 								<td class="hidden-xs">
 									<c:if test="${agent.sendPackage==0}">
 										<button onclick="sendRed(1,${agent.passportId})"><font color="blue">是</font></button>
@@ -65,7 +65,7 @@
 									
 								</td>
 								<td class="hidden-xs">${agent.createTime}</td>
-								<td class="hidden-xs">
+								<%-- <td class="hidden-xs">
 									<div class='hidden-phone visible-desktop btn-group  '>
 										<button class='btn btn-mini btn-info'
 											onclick="openNewWinow('${pageContext.request.contextPath}/agent.do?method=toAddGoldPage&givePassportId=${agent.passportId }','给予金币');">
@@ -78,7 +78,19 @@
 											发送红包
 										</button>
 									</div>
-								</td>
+								</td> --%>
+								<td class="hidden-xs">
+									<div class='hidden-phone visible-desktop btn-group  '>
+										<button class='btn btn-mini btn-info'
+											onclick="openNewWinow('${pageContext.request.contextPath}/giftAll.do?method=curDayAllSendGift&sendId=${agent.passportId }','所有发送礼物');">
+											查看赠送礼物
+										</button>|
+										<button class='btn btn-mini btn-info'
+											onclick="openNewWinow('${pageContext.request.contextPath}/giftAll.do?method=curDayAllReceiveGift&recId=${agent.passportId }','所有接收礼物');">
+											查看接收礼物
+										</button>
+									</div>
+								</td> 
 								
 								
 								<!--  -->

@@ -20,7 +20,7 @@
 <html lang="zh">
 	<head>
 		<meta charset="utf-8" />
-		<title>无双吹牛 管理系统</title>
+		<title>老虎机  管理系统</title>
 		<meta name="description" content="overview & stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<base href="${pageContext.request.contextPath}/" />
@@ -83,7 +83,7 @@
 
 						<ul class="breadcrumb">
 
-							<li><i class="icon-home"></i> <a href="#">德州后台</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+							<li><i class="icon-home"></i> <a href="#">老虎机后台</a><span class="divider"><i class="icon-angle-right"></i></span></li>
 
 							<li class="active" id="page_title_nav">Dashboard</li>
 						</ul><!--.breadcrumb-->

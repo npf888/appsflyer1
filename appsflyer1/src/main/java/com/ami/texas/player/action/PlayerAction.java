@@ -240,23 +240,70 @@ public class PlayerAction extends BaseAction
     {
         logger.debug("query");
         
+        // 发送用户账号
+    	String sendUserid = this.get("sendUserid");
+    	
+    	// 发送用户姓名
+    	String sendUsername = this.get("sendUsername");
+    	
         // 用户账号
         String account = this.get("useraccount");
         
         // 用户姓名
         String username = this.get("username");
         // 返回到页面
+        this.set("sendUserid", sendUserid);
+        this.set("sendUsername", sendUsername);
         this.set("account", account);
         this.set("username", username);
         
         Pager pager = new Pager(this.getReq());
         
         // 调用逻辑类 查询到结果
-        pager = playerService.queryEmail(pager, account, username);
+        pager = playerService.queryEmail(pager,sendUserid,sendUsername, account, username);
         
         this.set("PAGER", pager);
         
         return "queryEmail";
+    }
+    /**
+     * 获取邮件列表 中 礼物部分
+     * 
+     * @return
+     * @throws Exception
+     * @see [类、类#方法、类#成员]
+     */
+    public String queryOnlyEmail()
+    		throws Exception
+    {
+    	logger.debug("query");
+    	
+    	// 发送用户账号
+    	String sendUserid = this.get("sendUserid");
+    	
+    	// 发送用户姓名
+    	String sendUsername = this.get("sendUsername");
+    	
+    	
+    	// 接收用户账号
+    	String account = this.get("useraccount");
+    	
+    	// 接收用户姓名
+    	String username = this.get("username");
+    	// 返回到页面
+        this.set("sendUserid", sendUserid);
+        this.set("sendUsername", sendUsername);
+    	this.set("account", account);
+    	this.set("username", username);
+    	
+    	Pager pager = new Pager(this.getReq());
+    	
+    	// 调用逻辑类 查询到结果
+    	pager = playerService.queryGiftEmail(pager,sendUserid,sendUsername, account, username);
+    	
+    	this.set("PAGER", pager);
+    	
+    	return "queryOnlyEmail";
     }
     
     /**

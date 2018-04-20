@@ -1,7 +1,7 @@
 
 <div class="navbar">
   <div class="navbar-inner">
-    <div class="container-fluid"><img alt="" src="img/logo.png"  style="height: 59px;">  <b style="color:#FFFFFF;font-size:30px;">无双吹牛 管理系统</b>
+    <div class="container-fluid"><img alt="" src="img/logo.png"  style="height: 59px;">  <b style="color:#FFFFFF;font-size:30px;">老虎机 管理系统</b>
       <!--/.brand-->
       <ul class="nav ace-nav pull-right">
         

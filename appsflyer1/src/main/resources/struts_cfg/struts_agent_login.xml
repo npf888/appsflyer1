@@ -47,4 +47,11 @@
 			<result name="all">/agent/content/allAgentList.jsp</result>
 		</action>
 	</package>
+	<package name="giftAll" extends="base-default" namespace="/">
+		<action name="giftAll" class="giftAction">
+			<interceptor-ref name="baseInterceptorStack"></interceptor-ref>
+			<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			<result name="all">/agent/gift/gift.jsp</result>
+		</action>
+	</package>
 </struts>

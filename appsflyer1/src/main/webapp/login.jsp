@@ -4,7 +4,7 @@
 <html lang="zh">
 	<head>
 		<meta charset="utf-8" />
-		<title>无双吹牛 管理系统</title>
+		<title>老虎机 管理系统</title>
 		<meta name="description" content="User login page" />
 		<base href="${pageContext.request.contextPath}/" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,7 +41,7 @@ if(!bro.safari)
 	<body class="login-layout" style="background:#42adff;">
 	<div class="center" style="margin-bottom: 32px;margin-top: 28px;">
 		<h1><img src="img/logo.png"/></h1>
-		<h1 style="color:#FFFFFF">无双吹牛 管理系统</h1>
+		<h1 style="color:#FFFFFF">老虎机 管理系统</h1>
 	</div>
 		<div class="container-fluid" id="main-container">
 			<div id="main-content">

@@ -25,14 +25,14 @@ public class AppConstant
     
     public static int server_jet = 16*60*60;
     
-    public static String SERVER_ip ="http://127.0.0.1";//正服47.88.169.228
+    public static String SERVER_ip ="http://116.62.175.124";//正服47.88.169.228
     
-    public static String SERVER_URL = SERVER_ip + ":80/";//"http://158.85.174.2:8080/";
+    public static String SERVER_URL = SERVER_ip + ":81/";//"http://158.85.174.2:8080/";
     	
     /**
      * 修改活动的目标 游戏服务器（添加活动时，让目标服务器的内存里的活动也加上）
      */
-    public static String SERVER_URL_HTTP = "http://127.0.0.1:8888/";//"http://47.88.241.10:8888/"
+    public static String SERVER_URL_HTTP = "http://116.62.175.124:9999/";//"http://47.88.241.10:8888/"
     
     public static String SERVER_URLGM = SERVER_ip + ":8080/";
     

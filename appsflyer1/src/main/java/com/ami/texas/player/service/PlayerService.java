@@ -2,6 +2,7 @@ package com.ami.texas.player.service;
 
 import java.util.HashMap;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -132,11 +133,27 @@ public class PlayerService
      * @throws APIException
      * @see [类、类#方法、类#成员]
      */
-    public Pager queryEmail(Pager pager, String useraccount, String username)
+    public Pager queryEmail(Pager pager, String sendUserid, String sendUsername,String useraccount, String username)
         throws APIException
     {       
-        pager = playerDao.queryEmail(pager, useraccount, username);
+        pager = playerDao.queryEmail(pager,sendUserid,sendUsername, useraccount, username,"1=1");
         return pager;
+    }
+    /**
+     * 分页查询邮件列表 中的 赠送的礼物
+     * 
+     * @param pager
+     * @param useraccount 用户账号
+     * @param username 用户姓名
+     * @return
+     * @throws APIException
+     * @see [类、类#方法、类#成员]
+     */
+    public Pager queryGiftEmail(Pager pager,String sendUserid, String sendUsername, String useraccount, String username)
+    		throws APIException
+    {       
+    	pager = playerDao.queryEmail(pager, sendUserid,  sendUsername,useraccount, username,"mailType=4");
+    	return pager;
     }
     
     /**

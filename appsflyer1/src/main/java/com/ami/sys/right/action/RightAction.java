@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.ami.api.common.AppConstant;
 import com.ami.api.exception.APIException;
 import com.ami.api.utill.StringTool;
 import com.ami.api.web.action.BaseAction;
@@ -168,4 +171,15 @@ public class RightAction extends BaseAction implements ModelDriven
         return null;
     }
     
+    
+    
+    public void refresh()
+            throws Exception
+    {
+    	ServletContext servletContext = this.getReq().getSession().getServletContext();
+        Map<String, Map<String, Object>> roleMap = rightService.intiRole();
+        AppConstant.roleMap = roleMap;
+        servletContext.setAttribute("roleMap", rightService.intiRole());
+        servletContext.setAttribute("allNavMap", rightService.loadAllNav());
+    }
 }

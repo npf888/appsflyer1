@@ -11,6 +11,7 @@
 			<result name="queryFriend">/texas/player/friend_list.jsp</result>
 			<result name="queryFriendRequest">/texas/player/friend_request_list.jsp</result>
 			<result name="queryEmail">/texas/player/email_list.jsp</result>
+			<result name="queryOnlyEmail">/texas/player/email_list_only.jsp</result>
 			<result name="queryVip">/texas/player/vip.jsp</result>
 			<result name="queryRecharge">/texas/player/recharge.jsp</result>
 			<result name="getlevel">/texas/player/log_getlevel.jsp</result>

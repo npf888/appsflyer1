@@ -174,7 +174,12 @@ public class StatisticsAction extends BaseAction{
 			index++;
 		}
 		this.set("totalMinute", totalMinute);
-		this.set("avgMinute", totalMinute/((int)JSONObject.get("totalNum")));
+		int theNum = (int)JSONObject.get("totalNum");
+		if(theNum != 0){
+			this.set("avgMinute", totalMinute/((int)JSONObject.get("totalNum")));
+		}else{
+			this.set("avgMinute", 0);
+		}
 		this.set("onlinePeople", list);
 		return "online";
 	}

@@ -12,6 +12,8 @@
 	test="%{#session.groupright.indexOf('206002001')!=-1}">
 	<button class="btn btn-mini btn-info " data-rel="tooltip"
 		data-placement="left" title="" data-original-title="新增角色" id="add">+</button>
+	<button class="btn btn-mini btn-info " data-rel="tooltip"
+		data-placement="left" title="" data-original-title="刷新角色" id="refresh">刷新角色</button>
 </s:if> </span></div>
 
 <table id="table_bug_report"
@@ -56,6 +58,11 @@
 	$('#add').click(function() {
 
 		openNewWinow('right.do?method=toAdd', '新建角色');
+
+	});
+	$('#refresh').click(function() {
+
+		$.get('right.do?method=toAdd');
 
 	});
 
